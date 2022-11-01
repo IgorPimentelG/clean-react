@@ -1,12 +1,11 @@
-import { UnexpectedError } from './../../../domain/errors/unexpected-error'
-import { HttpPostClientSpy } from '@/data/test/mock-http-client'
+import { HttpPostClientSpy } from '@/data/test'
 import { RemoteAuthentication } from './remote-authentication'
-import { mockAccountModel, mockAuthentication } from '@/domain/test/mock-account'
-import { InvalidCredentailsError } from '@/domain/errors/invallid-credentails-error'
-import { HttpStatusCode } from '@/data/protocols/http/http-response'
+import { mockAccountModel, mockAuthentication } from '@/domain/test'
+import { InvalidCredentailsError, UnexpectedError } from '@/domain/errors'
+import { HttpStatusCode } from '@/data/protocols/http'
+import { AuthenticationParams } from '@/domain/usecases'
+import { AccountModel } from '@/domain/models'
 import faker from 'faker'
-import { AuthenticationParams } from '@/domain/usecases/authentication'
-import { AccountModel } from '@/domain/models/account-model'
 
 type SutTypes = {
   sut: RemoteAuthentication
