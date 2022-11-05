@@ -7,7 +7,7 @@ module.exports = {
   output: {
     path: path.join(__dirname, 'public/js'),
     publicPath: '/public/js',
-    fileName: 'bundle.js'
+    filename: 'bundle.js'
   },
   resolve: {
     extensions: ['.ts', '.tsx', '.js', 'scss'],
@@ -17,9 +17,14 @@ module.exports = {
   },
   module: {
     rules: [{
-      test: /\.ts(x?)$/,
-      loader: 'ts-loader',
-      exclude: /node_modules/
+      test: /\.(ts)x?$/,
+      exclude: /node_modules/,
+      use: {
+        loader: 'ts-loader',
+        options: {
+          compilerOptions: { noEmit: false }
+        }
+      }
     }, {
       test: /\.scss$/,
       use: [{
@@ -35,9 +40,11 @@ module.exports = {
     }]
   },
   devServer: {
-    contentBase: './public',
-    writeToDisk: true,
-    historyApiFallback: true
+    static: './public',
+    historyApiFallback: true,
+    devMiddleware: {
+      writeToDisk: true
+    }
   },
   externals: {
     react: 'React',
