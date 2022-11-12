@@ -1,5 +1,5 @@
 import React from 'react'
-import Styles from './spinner-styles.scss'
+import Styles from './styles.scss'
 
 type Props = React.HTMLAttributes<HTMLElement>
 
@@ -17,4 +17,4 @@ const Spinner: React.FC<Props> = (props: Props) => {
   )
 }
 
-export default Spinner
+export { Spinner }
