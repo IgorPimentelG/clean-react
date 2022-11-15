@@ -1,3 +1,4 @@
+import 'jest-localstorage-mock'
 import React from 'react'
 import faker from 'faker'
 import { cleanup, fireEvent, render, RenderResult, waitFor } from '@testing-library/react'
@@ -67,6 +68,9 @@ const makeSut = (params?: SutParams): SutTypes => {
 
 describe('Login Component', () => {
   afterEach(cleanup)
+  beforeEach(() => {
+    localStorage.clear()
+  })
 
   test('Should start with initial state', () => {
     const validationError = faker.random.words()
@@ -158,6 +162,15 @@ describe('Login Component', () => {
       const mainError = await sut.getByTestId('error')
       expect(mainError.textContent).toBe(errorMessage.message)
       expect(errorWrap.childElementCount).toBe(1)
+    })
+  })
+
+  test('Should add accessToke to localstorage on success', async () => {
+    const { sut, authenticationSpy } = makeSut()
+    simulateValidSubmit(sut)
+    await waitFor(() => {
+      sut.getByTestId('form')
+      expect(localStorage.setItem).toHaveBeenCalledWith('accessToken', authenticationSpy.account.accessToken)
     })
   })
 })
