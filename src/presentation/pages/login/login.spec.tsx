@@ -3,6 +3,8 @@ import React from 'react'
 import faker from 'faker'
 import { cleanup, fireEvent, render, RenderResult, waitFor } from '@testing-library/react'
 
+import { Router } from 'react-router-dom'
+import { createMemoryHistory } from 'history'
 import { Login } from './index'
 import { ValidationStub, AuthenticationSpy } from '@/presentation/test'
 import { InvalidCredentailsError } from '@/domain/errors'
@@ -15,6 +17,8 @@ type SutTypes = {
 type SutParams = {
   validationError: string
 }
+
+const history = createMemoryHistory()
 
 const populateEmailField = (
   sut: RenderResult,
@@ -58,7 +62,15 @@ const makeSut = (params?: SutParams): SutTypes => {
   const authenticationSpy = new AuthenticationSpy()
   validationStub.errorMessage = params?.validationError
   const sut = render(
-    <Login validation={validationStub} authentication={authenticationSpy} />
+    <Router
+      location={history.location}
+      navigator={history}
+    >
+      <Login
+        validation={validationStub}
+        authentication={authenticationSpy}
+      />
+    </Router>
   )
   return {
     sut,
@@ -172,5 +184,12 @@ describe('Login Component', () => {
       sut.getByTestId('form')
       expect(localStorage.setItem).toHaveBeenCalledWith('accessToken', authenticationSpy.account.accessToken)
     })
+  })
+
+  test('Should go to signup page', () => {
+    const { sut } = makeSut()
+    const register = sut.getByTestId('signup')
+    fireEvent.click(register)
+    expect(history.location.pathname).toBe('/signup')
   })
 })
