@@ -18,7 +18,7 @@ type SutParams = {
   validationError: string
 }
 
-const history = createMemoryHistory()
+const history = createMemoryHistory({ initialEntries: ['/login'] })
 
 const populateEmailField = (
   sut: RenderResult,
@@ -177,12 +177,22 @@ describe('Login Component', () => {
     })
   })
 
+  test('Should add accessToken to localstorage on success', async () => {
+    const { sut, authenticationSpy } = makeSut()
+    simulateValidSubmit(sut)
+    await waitFor(() => {
+      sut.getByTestId('form')
+      expect(localStorage.setItem).toHaveBeenCalledWith('accessToken', authenticationSpy.account.accessToken)
+    })
+  })
+
   test('Should add accessToke to localstorage on success', async () => {
     const { sut, authenticationSpy } = makeSut()
     simulateValidSubmit(sut)
     await waitFor(() => {
       sut.getByTestId('form')
       expect(localStorage.setItem).toHaveBeenCalledWith('accessToken', authenticationSpy.account.accessToken)
+      expect(history.location.pathname).toBe('/')
     })
   })
 
