@@ -5,7 +5,7 @@ import { cleanup, fireEvent, render, RenderResult, waitFor } from '@testing-libr
 
 import { Router } from 'react-router-dom'
 import { createMemoryHistory } from 'history'
-import { Login } from './index'
+import { Login } from '@/presentation/pages'
 import { ValidationStub, AuthenticationSpy } from '@/presentation/test'
 import { InvalidCredentailsError } from '@/domain/errors'
 
@@ -66,11 +66,6 @@ const testErrorWrapChildCount = (sut: RenderResult, count: number): void => {
 const testElementExists = (sut: RenderResult, fieldName: string): void => {
   const element = sut.getByTestId(fieldName)
   expect(element).toBeTruthy()
-}
-
-const testElementText = (sut: RenderResult, fieldName: string, text: string): void => {
-  const element = sut.getByTestId(fieldName)
-  expect(element.textContent).toBe(text)
 }
 
 const testButtonIsDisabled = (sut: RenderResult, fieldName: string, isDisabled: boolean): void => {
