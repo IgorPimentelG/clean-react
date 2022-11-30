@@ -1,11 +1,5 @@
-type URLs = {
-  login: string
-}
-
-const makeApiUrl = (): URLs => {
-  return {
-    login: 'http://fordevs.herokuapp.com/api/login'
-  }
+const makeApiUrl = (path: string): string => {
+  return `process.env.API_URL${path}`
 }
 
 export { makeApiUrl }
