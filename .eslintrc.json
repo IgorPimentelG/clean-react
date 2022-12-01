@@ -15,6 +15,7 @@
         "@typescript-eslint/camelcase": "off",
         "@typescript-eslint/no-unused-vars": "off",
         "@typescript-eslint/no-misused-promises": "off",
+        "@typescript-eslint/require-await": "off",
         "react/prop-types": "off",
         "react/jsx-uses-react": "error",
         "react/jsx-uses-vars": "error"
