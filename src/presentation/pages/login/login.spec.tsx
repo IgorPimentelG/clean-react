@@ -193,7 +193,7 @@ describe('Login Component', () => {
   test('Should preset error if SaveAccessToken falls', async () => {
     const { sut, saveAccessTokenMock } = makeSut()
     const errorMessage = new InvalidCredentailsError()
-    jest.spyOn(authenticationSpy, 'auth').mockRejectedValueOnce(errorMessage)
+    jest.spyOn(saveAccessTokenMock, 'save').mockRejectedValueOnce(errorMessage)
     await simulateValidSubmit(sut)
     await waitFor(async () => {
       const mainError = await sut.getByTestId('error')
