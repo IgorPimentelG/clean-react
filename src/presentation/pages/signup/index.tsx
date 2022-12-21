@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import Styles from './styles.scss'
 import Context from '@/presentation/context/form/form-context'
@@ -8,12 +8,37 @@ import {
   Footer,
   Input
 } from '@/presentation/components'
+import { Validation } from '@/presentation/protocols/validation'
 
-const SignUp: React.FC = () => {
+type Props = {
+  validation: Validation
+}
+
+const SignUp: React.FC<Props> = ({ validation }: Props) => {
+  const [state, setState] = useState({
+    isLoading: false,
+    name: '',
+    email: '',
+    password: '',
+    passwordConfirmation: '',
+    error: '',
+    nameError: '',
+    emailError: '',
+    passwordError: '',
+    passwordConfirmationError: ''
+  })
+
+  useEffect(() => {
+    setState({
+      ...state,
+      nameError: validation.validate('name', state.name)
+    })
+  }, [state])
+
   return (
     <div className={Styles.signup}>
       <LoginHeader />
-      <Context.Provider value={{ state: {} }}>
+      <Context.Provider value={{ state, setState }}>
         <form data-testid="form" className={Styles.form}>
           <h2>Criar Conta</h2>
           <Input type="text" name="name" placeholder="Digite o seu nome" />
@@ -23,13 +48,14 @@ const SignUp: React.FC = () => {
           <button
             data-testid="submit"
             type="submit"
+            disabled
             className={Styles.submit}
           >
-              Entrar
+              Cadastrar
           </button>
-          <Link data-testid="signup" to="/signup" className={Styles.link}>
+          <span data-testid="signup" className={Styles.link}>
               Voltar Para Login
-          </Link>
+          </span>
           <FormStatus />
         </form>
         <Footer />
