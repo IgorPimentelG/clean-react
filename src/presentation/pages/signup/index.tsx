@@ -11,7 +11,7 @@ import {
 import { Validation } from '@/presentation/protocols/validation'
 
 type Props = {
-  validation: Validation
+  validation?: Validation
 }
 
 const SignUp: React.FC<Props> = ({ validation }: Props) => {
@@ -31,7 +31,13 @@ const SignUp: React.FC<Props> = ({ validation }: Props) => {
   useEffect(() => {
     setState({
       ...state,
-      nameError: validation.validate('name', state.name)
+      nameError: validation.validate('name', state.name),
+      emailError: validation.validate('email', state.email),
+      passwordError: validation.validate('password', state.password),
+      passwordConfirmationError: validation.validate(
+        'passwordConfirmation',
+        state.passwordConfirmationError
+      )
     })
   }, [state])
 
