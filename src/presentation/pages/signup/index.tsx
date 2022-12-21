@@ -9,12 +9,14 @@ import {
   Input
 } from '@/presentation/components'
 import { Validation } from '@/presentation/protocols/validation'
+import { AddAccount } from '@/domain/usecases'
 
 type Props = {
-  validation?: Validation
+  validation: Validation
+  addAccount: AddAccount
 }
 
-const SignUp: React.FC<Props> = ({ validation }: Props) => {
+const SignUp: React.FC<Props> = ({ validation, addAccount }: Props) => {
   const [state, setState] = useState({
     isLoading: false,
     name: '',
@@ -41,11 +43,31 @@ const SignUp: React.FC<Props> = ({ validation }: Props) => {
     })
   }, [state])
 
+  const disabled = !!state.nameError || !!state.emailError ||
+    !!state.passwordError || !!state.passwordConfirmationError
+
+  async function handleSubmit (event: React.FormEvent<HTMLFormElement>): Promise<void> {
+    event.preventDefault()
+    try {
+      if (state.isLoading) return
+
+      setState({ ...state, isLoading: true })
+      await addAccount.add({
+        name: state.name,
+        email: state.email,
+        password: state.password,
+        passwordConfirmation: state.passwordConfirmation
+      })
+    } catch {
+
+    }
+  }
+
   return (
     <div className={Styles.signup}>
       <LoginHeader />
       <Context.Provider value={{ state, setState }}>
-        <form data-testid="form" className={Styles.form}>
+        <form data-testid="form" className={Styles.form} onSubmit={handleSubmit}>
           <h2>Criar Conta</h2>
           <Input type="text" name="name" placeholder="Digite o seu nome" />
           <Input type="email" name="email" placeholder="Digite o seu e-mail" />
@@ -54,7 +76,7 @@ const SignUp: React.FC<Props> = ({ validation }: Props) => {
           <button
             data-testid="submit"
             type="submit"
-            disabled
+            disabled={disabled}
             className={Styles.submit}
           >
               Cadastrar
