@@ -39,12 +39,13 @@ const SignUp: React.FC<Props> = ({
   })
 
   useEffect(() => {
-    const nameError = validation.validate('name', state.name)
-    const emailError = validation.validate('email', state.email)
-    const passwordError = validation.validate('password', state.password)
+    const { name, email, password, passwordConfirmation } = state
+    const formData = { name, email, password, passwordConfirmation }
+    const nameError = validation.validate('name', formData)
+    const emailError = validation.validate('email', formData)
+    const passwordError = validation.validate('password', formData)
     const passwordConfirmationError = validation.validate(
-      'passwordConfirmation',
-      state.passwordConfirmationError
+      'passwordConfirmation', formData
     )
 
     setState({
@@ -55,7 +56,7 @@ const SignUp: React.FC<Props> = ({
       passwordConfirmationError,
       isFormInvalid: !!nameError || !!emailError || !!passwordError || !!passwordConfirmationError
     })
-  }, [state.name])
+  }, [state.name, state.email, state.password, state.passwordConfirmation])
 
   async function handleSubmit (event: React.FormEvent<HTMLFormElement>): Promise<void> {
     event.preventDefault()
@@ -91,7 +92,7 @@ const SignUp: React.FC<Props> = ({
           <Input type="password" name="password" placeholder="Digite sua senha" />
           <Input type="password" name="passwordConfirmation" placeholder="Repita sua senha" />
           <SubmitButton text="cadastrar" />
-          <Link to="/signin" data-testid="login-link" className={Styles.link}>
+          <Link to="/login" data-testid="login-link" className={Styles.link}>
               Voltar Para Login
           </Link>
           <FormStatus />

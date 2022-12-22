@@ -31,22 +31,22 @@ const Login: React.FC<Props> = ({ validation, authentication, saveAccessToken }:
   })
 
   useEffect(() => {
-    const emailError = validation.validate('email', state.email)
-    const passwordError = validation.validate('password', state.password)
+    const { email, password } = state
+    const formData = { email, password }
+    const emailError = validation.validate('email', formData)
+    const passwordError = validation.validate('password', formData)
     setState({
       ...state,
       emailError,
       passwordError,
-      isFormInvalid: !!state.emailError || !!state.passwordError
+      isFormInvalid: !!emailError || !!passwordError
     })
   }, [state.email, state.password])
 
   async function handleSubmit (event: React.FormEvent<HTMLFormElement>): Promise<void> {
     event.preventDefault()
     try {
-      if (state.isLoading || state.isFormInvalid) {
-        return
-      }
+      if (state.isLoading || state.isFormInvalid) return
 
       setState({
         ...state,
