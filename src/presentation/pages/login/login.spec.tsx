@@ -159,7 +159,7 @@ describe('Login Component', () => {
     expect(history.location.pathname).toBe('/')
   })
 
-  test('Should preset error if SaveAccessToken falls', async () => {
+  test('Should preset error if SaveAccessToken fails', async () => {
     const { sut, saveAccessTokenMock } = makeSut()
     const errorMessage = new InvalidCredentailsError()
     jest.spyOn(saveAccessTokenMock, 'save').mockRejectedValueOnce(errorMessage)
