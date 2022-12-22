@@ -1,3 +1,4 @@
+import { CompareFieldsValidation } from './../compare-fields/compare-fields-validation'
 import { FieldValidation } from '@/presentation/validation/protocols'
 import {
   RequiredFieldValidation,
@@ -27,6 +28,11 @@ class ValidationBuilder {
 
   min (length: number): ValidationBuilder {
     this.validations.push(new MinLengthValidation(this.fieldName, length))
+    return this
+  }
+
+  sameAs (fieldToComapare: string): ValidationBuilder {
+    this.validations.push(new CompareFieldsValidation(this.fieldName, fieldToComapare))
     return this
   }
 
