@@ -5,7 +5,7 @@ import {
   HttpPostParams,
   HttpReponse,
   HttpStatusCode,
-  HttpGetClientParams
+  HttpGetParams
 } from '@/data/protocols/http'
 
 export class HttpPostClientSpy<R> implements HttpPostClient<R> {
@@ -28,7 +28,7 @@ export class HttpGetClientSpy<R> implements HttpGetClient<R> {
     statusCode: HttpStatusCode.ok
   }
 
-  async get (params: HttpGetClientParams): Promise<HttpReponse<R>> {
+  async get (params: HttpGetParams): Promise<HttpReponse<R>> {
     this.url = params.url
     return Promise.resolve(this.response)
   }
@@ -37,4 +37,8 @@ export class HttpGetClientSpy<R> implements HttpGetClient<R> {
 export const mockPostRequest = (): HttpPostParams => ({
   url: faker.internet.url(),
   body: faker.random.objectElement()
+})
+
+export const mockGetRequest = (): HttpGetParams => ({
+  url: faker.internet.url()
 })
