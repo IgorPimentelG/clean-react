@@ -1,4 +1,5 @@
-import faker from "faker"
+import faker from "faker";
+import * as FormHelper from "../../support/form-helper";
 
 const baseUrl: string = Cypress.config().baseUrl;
 
@@ -8,40 +9,28 @@ describe("Login", () => {
     });
 
     it("Should load with correct initial state", () => {
-        cy.getByTestId("email-wrap").should("have.attr", "data-status", "invalid");
-        cy.getByTestId("email")
-            .should("have.attr", "title", "Campo obrigatório")
-            .should("have.attr", "readOnly");
-        cy.getByTestId("email-label").should("have.attr", "title", "Campo obrigatório")
-        cy.getByTestId("password-wrap").should("have.attr", "data-status", "invalid");
-        cy.getByTestId("password")
-            .should("have.attr", "title", "Campo obrigatório")
-            .should("have.attr", "readOnly");
-        cy.getByTestId("password-label").should("have.attr", "title", "Campo obrigatório");
+        cy.getByTestId("email").should("have.attr", "readOnly");
+        FormHelper.testInputStatus("email", "Campo obrigatório");
+        cy.getByTestId("password").should("have.attr", "readOnly");
+        FormHelper.testInputStatus("password", "Campo obrigatório");
         cy.getByTestId("submit").should("have.attr", "disabled");
         cy.getByTestId("error-wrap").should("not.have.descendants");
     });
 
     it("Should present error state if form is invalid", () => {
         cy.getByTestId("email").focus().type(faker.random.word());
-        cy.getByTestId("email").should("have.attr", "title", "Valor Inválido")
-        cy.getByTestId("email-label").should("have.attr", "title", "Valor Inválido")
-        cy.getByTestId("email-wrap").should("have.attr", "data-status", "invalid");
+        FormHelper.testInputStatus("email", "Valor Inválido");
         cy.getByTestId("password").focus().type(faker.random.alphaNumeric(4));
-        cy.getByTestId("password").should("have.attr", "title", "Valor Inválido")
-        cy.getByTestId("password-label").should("have.attr", "title", "Valor Inválido")
-        cy.getByTestId("password-wrap").should("have.attr", "data-status", "invalid");
+        FormHelper.testInputStatus("email", "Valor Inválido");
         cy.getByTestId("submit").should("have.attr", "disabled");
         cy.getByTestId("error-wrap").should("not.have.descendants");
     });
 
     it("Should present valid state if form is valid", () => {
         cy.getByTestId("email").focus().type(faker.internet.email());
-        cy.getByTestId("email").should("not.have.attr", "title");
-        cy.getByTestId("email-wrap").should("have.attr", "data-status", "valid");
+        FormHelper.testInputStatus("email");
         cy.getByTestId("password").focus().type(faker.random.alphaNumeric(6));
-        cy.getByTestId("password").should("not.have.attr", "title");
-        cy.getByTestId("password-wrap").should("have.attr", "data-status", "valid");
+        FormHelper.testInputStatus("password");
         cy.getByTestId("submit").should("not.have.attr", "disabled");
         cy.getByTestId("error-wrap").should("not.have.descendants");
     });
@@ -54,12 +43,8 @@ describe("Login", () => {
         cy.getByTestId("email").focus().type(faker.internet.email());
         cy.getByTestId("password").focus().type(faker.random.alphaNumeric(6));
         cy.getByTestId("submit").click();
-        cy.getByTestId("error-wrap")
-            .getByTestId("spinner").should("exist")
-            .getByTestId("error").should("not.exist")
-            .getByTestId("spinner").should("not.exist")
-            .getByTestId("error").should("contain.text", "Credenciais inválidas");
-        cy.url().should('eq', `${baseUrl}/login`);
+        FormHelper.testMainError("Credenciais inválidas");
+        FormHelper.testUrl("/login");
     });
 
       it("Should present InvalidCredentailsError on 400", () => {
@@ -70,12 +55,8 @@ describe("Login", () => {
         cy.getByTestId("email").focus().type(faker.internet.email());
         cy.getByTestId("password").focus().type(faker.random.alphaNumeric(6));
         cy.getByTestId("submit").click();
-        cy.getByTestId("error-wrap")
-            .getByTestId("spinner").should("exist")
-            .getByTestId("error").should("not.exist")
-            .getByTestId("spinner").should("not.exist")
-            .getByTestId("error").should("contain.text", "Algo de errado aconteceu. Tente novamente em breve.");
-        cy.url().should('eq', `${baseUrl}/login`);
+        FormHelper.testMainError("Algo de errado aconteceu. Tente novamente em breve.");
+        FormHelper.testUrl("/login");
     });
 
     it("Should present save accessToken if valid credentails are provided", () => {
@@ -93,7 +74,7 @@ describe("Login", () => {
             .getByTestId("spinner").should("exist")
             .getByTestId("error").should("not.exist")
             .getByTestId("spinner").should("not.exist")
-        cy.url().should('eq', `${baseUrl}/login`);
+        FormHelper.testUrl("/login");
         cy.window().then(window => assert.isOk(window.localStorage.getItem("accessToken")));
     });
 
@@ -108,12 +89,8 @@ describe("Login", () => {
         cy.getByTestId("email").focus().type(faker.internet.email());
         cy.getByTestId("password").focus().type(faker.random.alphaNumeric(6));
         cy.getByTestId("submit").click();
-        cy.getByTestId("error-wrap")
-            .getByTestId("spinner").should("exist")
-            .getByTestId("error").should("not.exist")
-            .getByTestId("spinner").should("not.exist")
-            .getByTestId("error").should("contain.text", "Algo de errado aconteceu. Tente novamente em breve.");
-        cy.url().should('eq', `${baseUrl}/login`);
+        FormHelper.testMainError("Algo de errado aconteceu. Tente novamente em breve.");
+        FormHelper.testUrl("/login");
     });
 
     it("Should prevent multiple submits", () => {
