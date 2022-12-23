@@ -1,4 +1,5 @@
 import React from 'react'
+import { SurveyList } from '@/presentation/pages'
 import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom'
 
 type Factory = {
@@ -13,6 +14,7 @@ const Router: React.FC<Factory> = (factory: Factory) => {
         <Route path="/" element={<Navigate to="/login"/>} />
         <Route path="/login" element={<factory.MakeLogin/>} />
         <Route path="/signup" element={<factory.MakeSignUp/>} />
+        <Route path="/survey-list" element={<SurveyList/>} />
       </Routes>
     </BrowserRouter>
   )
