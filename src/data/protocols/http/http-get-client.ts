@@ -1,9 +1,9 @@
 import { HttpReponse } from './http-response'
 
-export type HttpGetClientParams = {
+export type HttpGetParams = {
   url: string
 }
 
-export interface HttpGetClient<R> {
-  get: (params: HttpGetClientParams) => Promise<HttpReponse<R>>
+export interface HttpGetClient<R = any> {
+  get: (params: HttpGetParams) => Promise<HttpReponse<R>>
 }

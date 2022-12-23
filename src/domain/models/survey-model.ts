@@ -6,7 +6,7 @@ export type SurveyModel = {
   didAnswer: boolean
 }
 
-type Answer = {
+export type Answer = {
   image?: string
   answer: string
 }
