@@ -18,3 +18,9 @@
         margin: 8px 0 24px;
     }
 }
+
+@media only screen and (max-width: 600px) {
+    .header {
+        border-top: 20px solid $primaryDark;
+    }
+}
