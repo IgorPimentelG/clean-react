@@ -18,7 +18,7 @@ export const testButtonIsDisabled = (
 export const testStatusForField = (
   sut: RenderResult,
   fieldName: string,
-  validationError?: string
+  validationError: string = ''
 ): void => {
   const wrap = sut.getByTestId(`${fieldName}-wrap`)
   const field = sut.getByTestId(`${fieldName}`)
