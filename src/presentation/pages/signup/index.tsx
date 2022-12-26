@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import Styles from './styles.scss'
-import Context from '@/presentation/context/form/form-context'
+import { FormContext, APIContext } from '@/presentation/context'
 import {
   FormStatus,
   LoginHeader,
@@ -10,19 +10,18 @@ import {
   SubmitButton
 } from '@/presentation/components'
 import { Validation } from '@/presentation/protocols/validation'
-import { AddAccount, UpdateCurrentAccount } from '@/domain/usecases'
+import { AddAccount } from '@/domain/usecases'
 
 type Props = {
   validation: Validation
   addAccount: AddAccount
-  updateCurrentAccount: UpdateCurrentAccount
 }
 
 const SignUp: React.FC<Props> = ({
   validation,
-  addAccount,
-  updateCurrentAccount
+  addAccount
 }: Props) => {
+  const { setCurrentAccount } = useContext(APIContext)
   const navigate = useNavigate()
   const [state, setState] = useState({
     isLoading: false,
@@ -70,7 +69,7 @@ const SignUp: React.FC<Props> = ({
         password: state.password,
         passwordConfirmation: state.passwordConfirmation
       })
-      await updateCurrentAccount.save(account)
+      setCurrentAccount(account)
       navigate('/login', { replace: true })
     } catch (error) {
       setState({
@@ -84,7 +83,7 @@ const SignUp: React.FC<Props> = ({
   return (
     <div className={Styles.signup}>
       <LoginHeader />
-      <Context.Provider value={{ state, setState }}>
+      <FormContext.Provider value={{ state, setState }}>
         <form data-testid="form" className={Styles.form} onSubmit={handleSubmit}>
           <h2>Criar Conta</h2>
           <Input type="text" name="name" placeholder="Digite o seu nome" />
@@ -98,7 +97,7 @@ const SignUp: React.FC<Props> = ({
           <FormStatus />
         </form>
         <Footer />
-      </Context.Provider>
+      </FormContext.Provider>
     </div>
   )
 }
