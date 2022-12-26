@@ -6,7 +6,7 @@ import {
 import { makeSignUpValidation } from './signup-validation-factory'
 import { makeRemoteAddAccount } from '../../useCases/authentication/remote-add-account-factory'
 
-export const makeSignUp: React.FC = () => {
+export const MakeSignUp: React.FC = () => {
   return (
     <SignUp
       validation={makeSignUpValidation()}
