@@ -10,18 +10,18 @@ import {
   SubmitButton
 } from '@/presentation/components'
 import { Validation } from '@/presentation/protocols/validation'
-import { AddAccount, SaveAccessToken } from '@/domain/usecases'
+import { AddAccount, UpdateCurrentAccount } from '@/domain/usecases'
 
 type Props = {
   validation: Validation
   addAccount: AddAccount
-  saveAccessToken: SaveAccessToken
+  updateCurrentAccount: UpdateCurrentAccount
 }
 
 const SignUp: React.FC<Props> = ({
   validation,
   addAccount,
-  saveAccessToken
+  updateCurrentAccount
 }: Props) => {
   const navigate = useNavigate()
   const [state, setState] = useState({
@@ -70,8 +70,8 @@ const SignUp: React.FC<Props> = ({
         password: state.password,
         passwordConfirmation: state.passwordConfirmation
       })
-      await saveAccessToken.save(account.accessToken)
-      navigate('/', { replace: true })
+      await updateCurrentAccount.save(account)
+      navigate('/login', { replace: true })
     } catch (error) {
       setState({
         ...state,

@@ -85,6 +85,7 @@ describe("SignUp", () => {
         cy.intercept("POST", `${Cypress.env("api")}/signup`, { 
             statusCode: 200,
             body: {
+                name: faker.name.findName(),
                 accessToken: faker.random.uuid()
             }
         }).as("request");
@@ -93,8 +94,8 @@ describe("SignUp", () => {
        cy.getByTestId("submit").click();
 
        cy.wait("@request").then(() => {
-           cy.window().then(window => assert.isOk(window.localStorage.getItem("accessToken")));
-           FormHelper.testUrl("/");
+           cy.window().then(window => assert.isOk(window.localStorage.getItem("account")));
+           FormHelper.testUrl("/login");
        });
     });
 
@@ -102,6 +103,7 @@ describe("SignUp", () => {
         cy.intercept("POST", `${Cypress.env("api")}/signup`, { 
             statusCode: 200,
             body: {
+                name: faker.name.findName(),
                 accessToken: faker.random.uuid()
             }
         }).as("request");
@@ -115,6 +117,7 @@ describe("SignUp", () => {
         cy.intercept("POST", `${Cypress.env("api")}/signup`, { 
             statusCode: 200,
             body: {
+                name: faker.name.findName(),
                 accessToken: faker.random.uuid()
             }
         }).as("request");
