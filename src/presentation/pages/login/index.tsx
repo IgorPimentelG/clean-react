@@ -57,7 +57,7 @@ const Login: React.FC<Props> = ({ validation, authentication }: Props) => {
         password: state.password
       })
       setCurrentAccount(account)
-      navigate('/', { replace: true })
+      navigate('/survey-list', { replace: true })
     } catch (error) {
       setState({
         ...state,
