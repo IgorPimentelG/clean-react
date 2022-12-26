@@ -161,7 +161,7 @@ describe('Login Component', () => {
     const { sut, authenticationSpy, setCurrectAccountMock } = makeSut()
     await simulateValidSubmit(sut)
     expect(setCurrectAccountMock).toHaveBeenCalledWith(authenticationSpy.account)
-    expect(history.location.pathname).toBe('/')
+    expect(history.location.pathname).toBe('/survey-list')
   })
 
   test('Should go to signup page', () => {
