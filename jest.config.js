@@ -7,6 +7,7 @@ module.exports = {
     '!<rootDir>/src/presentation/config/router/**/*',
     '!**/*.d.ts'
   ],
+  setupFilesAfterEnv: ['<rootDir>/src/main/config/jest-setup.ts'],
   coverageDirectory: 'coverage',
   testPathIgnorePatterns: [
     '<rootDir>/node_modules/',
