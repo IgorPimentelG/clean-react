@@ -1,6 +1,6 @@
 import React from 'react'
 import { SurveyList } from '.'
-import { render, screen, waitFor } from '@testing-library/react'
+import { fireEvent, render, screen, waitFor } from '@testing-library/react'
 import { LoadSurveyListSpy } from '@/presentation/test/mock-load-survey-list'
 import { UnexpectedError } from '@/domain/errors'
 
@@ -48,6 +48,16 @@ describe('SurveyList Component', () => {
     await waitFor(() => {
       expect(screen.queryByTestId('survey-list')).not.toBeInTheDocument()
       expect(screen.getByTestId('error')).toHaveTextContent(error.message)
+    })
+  })
+
+  test('Should call LoadSurveyList on realod', async () => {
+    const loadSurveyListSpy = new LoadSurveyListSpy()
+    jest.spyOn(loadSurveyListSpy, 'loadAll').mockRejectedValueOnce(new UnexpectedError())
+    makeSut(loadSurveyListSpy)
+    await waitFor(() => {
+      fireEvent.click(screen.getByTestId('reload'))
+      expect(loadSurveyListSpy.callsCount).toBe(1)
     })
   })
 })
