@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import Styles from './styles.scss'
+import styles from './styles.module.scss'
 import { FormContext, APIContext } from '@/presentation/context'
 import { Authentication } from '@/domain/usecases'
 import { Validation } from '@/presentation/protocols/validation'
@@ -68,15 +68,15 @@ const Login: React.FC<Props> = ({ validation, authentication }: Props) => {
   }
 
   return (
-    <div className={Styles.login}>
+    <div className={styles.login}>
       <LoginHeader />
       <FormContext.Provider value={{ state, setState }}>
-        <form data-testid="form" className={Styles.form} onSubmit={handleSubmit}>
+        <form data-testid="form" className={styles.form} onSubmit={handleSubmit}>
           <h2>Login</h2>
           <Input type="email" name="email" placeholder="Digite o seu e-mail" />
           <Input type="password" name="password" placeholder="Digite sua senha" />
           <SubmitButton text="Entrar" />
-          <Link data-testid="signup-link" to="/signup" className={Styles.link}>
+          <Link data-testid="signup-link" to="/signup" className={styles.link}>
             Criar conta
           </Link>
           <FormStatus />

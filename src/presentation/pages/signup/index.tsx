@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import Styles from './styles.scss'
+import styles from './styles.module.scss'
 import { FormContext, APIContext } from '@/presentation/context'
 import {
   FormStatus,
@@ -81,17 +81,17 @@ const SignUp: React.FC<Props> = ({
   }
 
   return (
-    <div className={Styles.signup}>
+    <div className={styles.signup}>
       <LoginHeader />
       <FormContext.Provider value={{ state, setState }}>
-        <form data-testid="form" className={Styles.form} onSubmit={handleSubmit}>
+        <form data-testid="form" className={styles.form} onSubmit={handleSubmit}>
           <h2>Criar Conta</h2>
           <Input type="text" name="name" placeholder="Digite o seu nome" />
           <Input type="email" name="email" placeholder="Digite o seu e-mail" />
           <Input type="password" name="password" placeholder="Digite sua senha" />
           <Input type="password" name="passwordConfirmation" placeholder="Repita sua senha" />
           <SubmitButton text="cadastrar" />
-          <Link to="/login" data-testid="login-link" className={Styles.link}>
+          <Link to="/login" data-testid="login-link" className={styles.link}>
               Voltar Para Login
           </Link>
           <FormStatus />

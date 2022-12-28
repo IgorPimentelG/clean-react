@@ -1,6 +1,6 @@
 import React, { memo } from 'react'
 import { Logo } from '../logo'
-import styles from './styles.scss'
+import styles from './styles.module.scss'
 
 const Header: React.FC = () => {
   return (

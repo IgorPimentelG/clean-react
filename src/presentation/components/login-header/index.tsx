@@ -1,10 +1,10 @@
 import React, { memo } from 'react'
 import { Logo } from '../logo'
-import Styles from './styles.scss'
+import styles from './styles.module.scss'
 
 const LoginHeader: React.FC = () => {
   return (
-    <header className={Styles.header}>
+    <header className={styles.header}>
       <Logo />
       <h1>4Dev - Enquetes para Programadores</h1>
     </header>

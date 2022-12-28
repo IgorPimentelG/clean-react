@@ -1,9 +1,9 @@
 import React, { memo } from 'react'
-import Styles from './styles.scss'
+import styles from './styles.module.scss'
 
 const Footer: React.FC = () => {
   return (
-    <footer className={Styles.footer} />
+    <footer className={styles.footer} />
   )
 }
 

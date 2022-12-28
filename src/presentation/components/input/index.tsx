@@ -1,5 +1,5 @@
 import React, { useContext, useRef } from 'react'
-import Styles from './styles.scss'
+import styles from './styles.module.scss'
 import Context from '@/presentation/context/form/form-context'
 
 type Props = React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>
@@ -19,7 +19,7 @@ const Input: React.FC<Props> = (props: Props) => {
   return (
     <div
       data-testid={`${props.name}-wrap`}
-      className={Styles.inputWrap}
+      className={styles.inputWrap}
       data-status={error ? 'invalid' : 'valid'}
     >
       <input

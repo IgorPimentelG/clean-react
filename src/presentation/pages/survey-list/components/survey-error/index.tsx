@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import styles from './styles.scss'
+import styles from './styles.module.scss'
 import { SurveyContext } from '@/presentation/context'
 
 const SurveyError: React.FC = () => {

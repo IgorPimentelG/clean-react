@@ -1,5 +1,5 @@
 import React from 'react'
-import Styles from './styles.scss'
+import styles from './styles.module.scss'
 
 type Props = React.HTMLAttributes<HTMLElement>
 
@@ -8,7 +8,7 @@ const Spinner: React.FC<Props> = (props: Props) => {
     <div
       {...props}
       data-testid="spinner"
-      className={[Styles.spinner, props.className].join(' ')}
+      className={[styles.spinner, props.className].join(' ')}
     >
       <div />
       <div />
