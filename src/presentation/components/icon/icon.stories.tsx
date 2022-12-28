@@ -1,5 +1,5 @@
 import { Meta, StoryObj } from '@storybook/react'
-import { Icon, IconName } from '.'
+import { Icon, IconName } from '@/presentation/components'
 
 type Props = {
   iconName: IconName
@@ -13,8 +13,9 @@ export default {
     className: {
       control: { type: null },
       description: 'Assign external styles',
-      defaultValue: ''
-
+      table: {
+        defaultValue: { summary: 'optional' }
+      }
     },
     iconName: {
       control: { type: null },
