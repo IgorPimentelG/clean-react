@@ -1,8 +1,6 @@
 import faker from "faker";
 import * as FormHelper from "../../support/form-helper";
 
-const baseUrl: string = Cypress.config().baseUrl;
-
 describe("Login", () => {
     beforeEach(() => {
         cy.visit("/login");
@@ -77,21 +75,6 @@ describe("Login", () => {
             .getByTestId("spinner").should("not.exist")
         FormHelper.testUrl("/login");
         cy.window().then(window => assert.isOk(window.localStorage.getItem("account")));
-    });
-
-    it("Should present UnexpectedError if invalid data is returned", () => {
-        cy.intercept("POST", `${Cypress.env("api")}/login`, { 
-            statusCode: 200,
-            body: {
-                invalidProperty: faker.random.uuid()
-            }
-        });
-
-        cy.getByTestId("email").focus().type(faker.internet.email());
-        cy.getByTestId("password").focus().type(faker.random.alphaNumeric(6));
-        cy.getByTestId("submit").click();
-        FormHelper.testMainError("Algo de errado aconteceu. Tente novamente em breve.");
-        FormHelper.testUrl("/login");
     });
 
     it("Should prevent multiple submits", () => {

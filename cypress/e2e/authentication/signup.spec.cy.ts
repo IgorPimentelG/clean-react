@@ -67,20 +67,6 @@ describe("SignUp", () => {
        FormHelper.testUrl("/signup");
     });
 
-    it("Should present UnexpectedError if invalid data is returned", () => {
-        cy.intercept("POST", `${Cypress.env("api")}/signup`, { 
-            statusCode: 200,
-            body: {
-                invalid: faker.random.uuid()
-            }
-        });
-
-       simulateValidSubmit();
-       cy.getByTestId("submit").click();
-       FormHelper.testMainError("Algo de errado aconteceu. Tente novamente em breve.");
-       FormHelper.testUrl("/signup");
-    });
-
     it("Should present save accessToken if valid credentials are provided", () => {
         cy.intercept("POST", `${Cypress.env("api")}/signup`, { 
             statusCode: 200,
