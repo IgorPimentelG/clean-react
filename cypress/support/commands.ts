@@ -39,7 +39,11 @@
 declare namespace Cypress {
   interface Chainable {
       getByTestId(id: string): Chainable<JQuery<HTMLElement>>
+      setAccount(name: string, accessToken: string): Chainable<void>
   }
 }
 
 Cypress.Commands.add("getByTestId", (id) => cy.get(`[data-testid=${id}]`))
+Cypress.Commands.add("setAccount", (name: string, accessToken: string) => {
+  localStorage.setItem('account', JSON.stringify({ name, accessToken }))
+})
