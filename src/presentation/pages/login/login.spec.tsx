@@ -1,6 +1,6 @@
 import React from 'react'
 import faker from 'faker'
-import { AccountModel } from '@/domain/models'
+import { Authentication } from '@/domain/usecases'
 import { APIContext } from '@/presentation/context'
 import { Router } from 'react-router-dom'
 import { createMemoryHistory } from 'history'
@@ -20,7 +20,7 @@ import {
 
 type SutTypes = {
   authenticationSpy: AuthenticationSpy
-  setCurrectAccountMock: (account: AccountModel) => void
+  setCurrectAccountMock: (account: Authentication.Model) => void
 }
 
 type SutParams = {

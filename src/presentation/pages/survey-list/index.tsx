@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import styles from './styles.module.scss'
 import { Header, Footer } from '@/presentation/components'
 import { LoadSurveyList } from '@/domain/usecases'
-import { SurveyModel } from '@/domain/models'
 import { SurveyContext } from '@/presentation/context'
 import { SurveyError, SurveyItem, SurveyItemEmpty } from './components'
 
@@ -12,7 +11,7 @@ type Props = {
 
 const SurveyList: React.FC<Props> = ({ loadSurveyList }: Props) => {
   const [state, setState] = useState({
-    surveys: [] as SurveyModel[],
+    surveys: [] as LoadSurveyList.Model[],
     error: '',
     reload: false
   })
@@ -38,7 +37,7 @@ const SurveyList: React.FC<Props> = ({ loadSurveyList }: Props) => {
             ) : (
               <ul data-testid="survey-list">
                 {state.surveys.length
-                  ? state.surveys.map((survey: SurveyModel) =>
+                  ? state.surveys.map((survey: LoadSurveyList.Model) =>
                     <SurveyItem key={survey.id} survey={survey}/>
                   )
                   : <SurveyItemEmpty />

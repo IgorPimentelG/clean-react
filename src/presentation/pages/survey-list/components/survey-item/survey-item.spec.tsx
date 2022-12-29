@@ -3,10 +3,10 @@ import { SurveyItem } from '.'
 import { render, screen } from '@testing-library/react'
 import { mockSurveyList } from '@/domain/test'
 import { IconName } from '@/presentation/components'
-import { SurveyModel } from '@/domain/models'
+import { LoadSurveyList } from '@/domain/usecases'
 
 type SutParams = {
-  survey: SurveyModel
+  survey: LoadSurveyList.Model
 }
 
 const makeSut = ({ survey }: SutParams): void => {

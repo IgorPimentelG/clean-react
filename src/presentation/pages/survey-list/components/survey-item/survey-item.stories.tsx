@@ -1,10 +1,10 @@
 import { Meta, StoryObj } from '@storybook/react'
-import { SurveyModel } from '@/domain/models'
+import { LoadSurveyList } from '@/domain/usecases'
 import { mockSurveyList } from '@/domain/test'
 import { SurveyItem } from '@/presentation/pages/survey-list/components'
 
 type Props = {
-  survey: SurveyModel
+  survey: LoadSurveyList.Model
 }
 
 export default {

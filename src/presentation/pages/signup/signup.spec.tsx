@@ -5,7 +5,7 @@ import faker from 'faker'
 import { createMemoryHistory } from 'history'
 import { APIContext } from '@/presentation/context'
 import { EmailInUseError } from '@/domain/errors'
-import { AccountModel } from '@/domain/models'
+import { AddAccount } from '@/domain/usecases'
 import {
   Helper,
   ValidationStub,
@@ -22,7 +22,7 @@ const history = createMemoryHistory({ initialEntries: ['/login'] })
 
 type SutTypes = {
   addAccountSpy: AddAccountSpy
-  setCurrectAccountMock: (account: AccountModel) => void
+  setCurrectAccountMock: (account: AddAccount.Model) => void
 }
 
 type SutParams = {
