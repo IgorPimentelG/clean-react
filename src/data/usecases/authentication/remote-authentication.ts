@@ -1,15 +1,14 @@
 import { InvalidCredentailsError, UnexpectedError } from '@/domain/errors'
 import { HttpStatusCode, HttpPostClient } from '@/data/protocols/http'
-import { Authentication, AuthenticationParams } from '@/domain/usecases'
-import { AccountModel } from '@/domain/models'
+import { Authentication } from '@/domain/usecases'
 
 export class RemoteAuthentication implements Authentication {
   constructor (
     private readonly url: string,
-    private readonly httpPostClient: HttpPostClient<AuthenticationParams, AccountModel>
+    private readonly httpPostClient: HttpPostClient<RemoteAuthentication.Model>
   ) {}
 
-  async auth (params: AuthenticationParams): Promise<AccountModel> {
+  async auth (params: Authentication.Params): Promise<Authentication.Model> {
     const httpResponse = await this.httpPostClient.post({
       url: this.url,
       body: params
@@ -21,4 +20,8 @@ export class RemoteAuthentication implements Authentication {
       default: throw new UnexpectedError()
     }
   }
+}
+
+export namespace RemoteAuthentication {
+  export type Model = Authentication.Model
 }

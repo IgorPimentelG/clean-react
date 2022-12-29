@@ -1,12 +1,12 @@
 import React, { useContext, useRef } from 'react'
-import Styles from './styles.scss'
-import Context from '@/presentation/context/form/form-context'
+import styles from './styles.module.scss'
+import { FormContext } from '@/presentation/context'
 
 type Props = React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>
 
 const Input: React.FC<Props> = (props: Props) => {
   const inputRef = useRef<HTMLInputElement>(null)
-  const { state, setState } = useContext(Context)
+  const { state, setState } = useContext(FormContext)
   const error = state[`${props.name}Error`]
 
   function handleChange (event: React.FocusEvent<HTMLInputElement, Element>): void {
@@ -19,7 +19,7 @@ const Input: React.FC<Props> = (props: Props) => {
   return (
     <div
       data-testid={`${props.name}-wrap`}
-      className={Styles.inputWrap}
+      className={styles.inputWrap}
       data-status={error ? 'invalid' : 'valid'}
     >
       <input

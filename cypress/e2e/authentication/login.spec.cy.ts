@@ -63,6 +63,7 @@ describe("Login", () => {
         cy.intercept("POST", `${Cypress.env("api")}/login`, { 
             statusCode: 200,
             body: {
+                name: faker.name.findName(),
                 accessToken: faker.random.uuid()
             }
         });
@@ -75,7 +76,7 @@ describe("Login", () => {
             .getByTestId("error").should("not.exist")
             .getByTestId("spinner").should("not.exist")
         FormHelper.testUrl("/login");
-        cy.window().then(window => assert.isOk(window.localStorage.getItem("accessToken")));
+        cy.window().then(window => assert.isOk(window.localStorage.getItem("account")));
     });
 
     it("Should present UnexpectedError if invalid data is returned", () => {
@@ -97,6 +98,7 @@ describe("Login", () => {
         cy.intercept("POST", `${Cypress.env("api")}/login`, { 
             statusCode: 200,
             body: {
+                name: faker.name.findName(),
                 accessToken: faker.random.uuid()
             }
         }).as("request");
@@ -111,6 +113,7 @@ describe("Login", () => {
         cy.intercept("POST", `${Cypress.env("api")}/login`, { 
             statusCode: 200,
             body: {
+                name: faker.name.findName(),
                 accessToken: faker.random.uuid()
             }
         }).as("request");
