@@ -11,8 +11,8 @@ export namespace LoadSurveyResult {
 
   export type Answers = {
     image?: string
-    ansert: string
-    cout: number
+    answer: string
+    count: number
     percent: number
   }
 }

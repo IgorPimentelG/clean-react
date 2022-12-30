@@ -5,13 +5,14 @@ import { LoadSurveyResult } from '@/domain/usecases'
 class RemoteLoadSurveyResult implements LoadSurveyResult {
   constructor (
     private readonly url: string,
-    private readonly httpGetClient: HttpGetClient
+    private readonly httpGetClient: HttpGetClient<LoadSurveyResult.Model>
   ) {}
 
   async load (): Promise<LoadSurveyResult.Model> {
     const response = await this.httpGetClient.get({ url: this.url })
+    const remoteSurveyResult = response.body
     switch (response.statusCode) {
-      case HttpStatusCode.ok: return null
+      case HttpStatusCode.ok: return Object.assign({}, remoteSurveyResult, { date: new Date(remoteSurveyResult.date) })
       case HttpStatusCode.forbidden: throw new AccessDeniedError()
       default: throw new UnexpectedError()
     }
@@ -19,3 +20,18 @@ class RemoteLoadSurveyResult implements LoadSurveyResult {
 }
 
 export { RemoteLoadSurveyResult }
+
+export namespace RemoteLoadSurveyResult {
+  export type Model = {
+    question: string
+    date: string
+    answers: Answers[]
+  }
+
+  export type Answers = {
+    image?: string
+    answer: string
+    count: number
+    percent: number
+  }
+}
