@@ -1,7 +1,7 @@
 import React from 'react'
 import styles from './styles.module.scss'
 import FlipMove from 'react-flip-move'
-import { Header, Footer, Spinner } from '@/presentation/components'
+import { Header, Footer, Loading } from '@/presentation/components'
 
 const SurveyResult: React.FC = () => {
   return (
@@ -17,12 +17,7 @@ const SurveyResult: React.FC = () => {
           </li>
         </FlipMove>
         <button>Voltar</button>
-        <div className={styles.loadingWrap}>
-          <div className={styles.loading}>
-            <span>Aguarde...</span>
-            <Spinner isNegative />
-          </div>
-        </div>
+        <Loading />
       </div>
       <Footer />
     </div>
