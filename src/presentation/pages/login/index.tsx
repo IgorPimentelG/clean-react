@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useContext } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
 import styles from './styles.module.scss'
-import { FormContext, APIContext } from '@/presentation/context'
+import { Link, useNavigate } from 'react-router-dom'
 import { Authentication } from '@/domain/usecases'
+import { FormContext, APIContext } from '@/presentation/context'
 import { Validation } from '@/presentation/protocols/validation'
 import {
   FormStatus,
@@ -35,12 +35,12 @@ const Login: React.FC<Props> = ({ validation, authentication }: Props) => {
     const formData = { email, password }
     const emailError = validation.validate('email', formData)
     const passwordError = validation.validate('password', formData)
-    setState({
-      ...state,
+    setState(old => ({
+      ...old,
       emailError,
       passwordError,
       isFormInvalid: !!emailError || !!passwordError
-    })
+    }))
   }, [state.email, state.password])
 
   async function handleSubmit (event: React.FormEvent<HTMLFormElement>): Promise<void> {
@@ -48,10 +48,10 @@ const Login: React.FC<Props> = ({ validation, authentication }: Props) => {
     try {
       if (state.isLoading || state.isFormInvalid) return
 
-      setState({
-        ...state,
+      setState(old => ({
+        ...old,
         isLoading: true
-      })
+      }))
       const account = await authentication.auth({
         email: state.email,
         password: state.password
@@ -59,11 +59,11 @@ const Login: React.FC<Props> = ({ validation, authentication }: Props) => {
       setCurrentAccount(account)
       navigate('/survey-list', { replace: true })
     } catch (error) {
-      setState({
-        ...state,
+      setState(old => ({
+        ...old,
         isLoading: false,
         error: error.message
-      })
+      }))
     }
   }
 
