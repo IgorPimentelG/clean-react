@@ -109,4 +109,14 @@ describe('SurveyResult Component', () => {
       expect(history.location.pathname).toBe('/login')
     })
   })
+
+  test('Should call LoadSurveyResult on reload', async () => {
+    const loadSurveyResultSpy = new LoadSurveyResultSpy()
+    jest.spyOn(loadSurveyResultSpy, 'load').mockRejectedValueOnce(new UnexpectedError())
+    makeSut(loadSurveyResultSpy)
+    await waitFor(() => {
+      fireEvent.click(screen.getByTestId('reload'))
+      expect(loadSurveyResultSpy.callsCount).toBe(1)
+    })
+  })
 })
