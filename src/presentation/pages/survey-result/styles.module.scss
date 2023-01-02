@@ -1,5 +1,5 @@
 @import "../../styles/colors.scss";
-@import "../../styles/animations.scss";
+@import "../../styles/animation.scss";
 
 .surveyResultWrap {
     display: flex;
@@ -54,7 +54,8 @@
             top: 0;
             left: 0;
             transform: translateX(-100%);
-            background-image: linear-gradient(to right, transparent, rgba($white, 0.2), transparent);
+            background-image: 
+                linear-gradient(to right, transparent, rgba($white, 0.2), transparent);
             animation: shimmer 1s infinite;
         }
 
