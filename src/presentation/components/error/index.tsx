@@ -2,16 +2,15 @@ import React, { useContext } from 'react'
 import styles from './styles.module.scss'
 import { SurveyContext } from '@/presentation/context'
 
-const SurveyError: React.FC = () => {
-  const { state, setState } = useContext(SurveyContext)
+type Props = {
+  error: string
+  reload: () => void
+}
 
-  function reload (): void {
-    setState({ surveys: [], error: '', reload: !state.reload })
-  }
-
+const Error: React.FC<Props> = ({ error, reload }) => {
   return (
     <div className={styles.errorWrap}>
-      <span data-testid="error">{state.error}</span>
+      <span data-testid="error">{error}</span>
       <button data-testid="reload" onClick={reload}>
         Tentar novamente
       </button>
@@ -19,4 +18,4 @@ const SurveyError: React.FC = () => {
   )
 }
 
-export { SurveyError }
+export { Error }

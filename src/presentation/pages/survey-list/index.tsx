@@ -3,8 +3,8 @@ import styles from './styles.module.scss'
 import { LoadSurveyList } from '@/domain/usecases'
 import { SurveyContext } from '@/presentation/context'
 import { useErrorHandler } from '@/presentation/hooks'
-import { Header, Footer } from '@/presentation/components'
-import { SurveyError, SurveyItem, SurveyItemEmpty } from './components'
+import { Header, Footer, Error } from '@/presentation/components'
+import { SurveyItem, SurveyItemEmpty } from './components'
 
 type Props = {
   loadSurveyList: LoadSurveyList
@@ -27,6 +27,10 @@ const SurveyList: React.FC<Props> = ({ loadSurveyList }: Props) => {
       }).catch(handleError)
   }, [state.reload])
 
+  function reload (): void {
+    setState(old => ({ ...old, reload: true }))
+  }
+
   return (
     <div className={styles.surveyListWrap}>
       <Header />
@@ -35,7 +39,10 @@ const SurveyList: React.FC<Props> = ({ loadSurveyList }: Props) => {
         <SurveyContext.Provider value={{ state, setState }}>
           {state.error
             ? (
-              <SurveyError />
+              <Error
+                error={state.error}
+                reload={reload}
+              />
             ) : (
               <ul data-testid="survey-list">
                 {state.surveys.length

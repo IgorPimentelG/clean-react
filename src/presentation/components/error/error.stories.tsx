@@ -1,11 +1,11 @@
 import { Meta, StoryObj } from '@storybook/react'
-import { SurveyError } from '@/presentation/pages/survey-list/components'
+import { Error } from '@/presentation/components'
 import { withReactContext } from 'storybook-react-context'
 import { SurveyContext } from '@/presentation/context'
 
 export default {
   title: 'Survey/SurveyError',
-  component: SurveyError,
+  component: Error,
   decorators: [
     withReactContext({
       Context: SurveyContext,
