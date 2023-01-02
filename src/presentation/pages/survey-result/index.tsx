@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import styles from './styles.module.scss'
-import FlipMove from 'react-flip-move'
 import { LoadSurveyResult } from '@/domain/usecases'
-import { Header, Footer, Loading, Calendar, Error } from '@/presentation/components'
+import { Header, Footer, Loading, Error } from '@/presentation/components'
 import { useErrorHandler } from '@/presentation/hooks'
+import { SurveyResultData } from './components'
 
 type Props = {
   loadSurveyResult: LoadSurveyResult
@@ -37,28 +37,7 @@ const SurveyResult: React.FC<Props> = ({ loadSurveyResult }: Props) => {
     <div className={styles.surveyResultWrap}>
       <Header />
       <div data-testid="survey-result" className={styles.contentWrap}>
-        {state.surveyResult && (
-          <>
-            <hgroup>
-              <Calendar date={state.surveyResult.date} className={styles.calendarWrap} />
-              <h2 data-testid="question">{state.surveyResult.question}</h2>
-            </hgroup>
-            <FlipMove data-testid="answers" className={styles.answersList}>
-              {state.surveyResult.answers.map((answer, index) => (
-                <li
-                  data-testid="answer-wrap"
-                  key={index}
-                  className={answer.isCurrentAccountAnswer ? styles.active : ''}
-                >
-                  {answer.image && <img data-testid="image" src={answer.image} alt={answer.answer} />}
-                  <span data-testid="answer" className={styles.answer}>{answer.answer}</span>
-                  <span data-testid="percent" className={styles.percent}>{answer.percent}%</span>
-                </li>
-              ))}
-            </FlipMove>
-            <button>Voltar</button>
-          </>
-        )}
+        {state.surveyResult && <SurveyResultData surveyResult={state.surveyResult}/>}
         {state.isLoading && <Loading />}
         {state.error && <Error error={state.error} reload={reload} />}
       </div>
