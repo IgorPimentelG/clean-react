@@ -4,7 +4,7 @@ import { Spinner } from '@/presentation/components'
 
 const Loading: React.FC = () => {
   return (
-    <div className={styles.loadingWrap}>
+    <div data-testid="loading" className={styles.loadingWrap}>
       <div className={styles.loading}>
         <span>Aguarde...</span>
         <Spinner isNegative />
