@@ -62,7 +62,7 @@
                 "answer": "React",
                 "count": 50,
                 "percent": 70,
-                "isCurrentAccountAnswer": false
+                "isCurrentAccountAnswer": true
             },
             {
                 "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/Angular_full_color_logo.svg/250px-Angular_full_color_logo.svg.png",
