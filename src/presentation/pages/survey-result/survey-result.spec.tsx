@@ -178,4 +178,48 @@ describe('SurveyResult Component', () => {
       expect(screen.queryByTestId('loading')).not.toBeInTheDocument()
     })
   })
+
+  test('Should logout on AccessDeniedError', async () => {
+    const saveSurveyResultSpy = new SaveSurveyResultSpy()
+    const error = new AccessDeniedError()
+    jest.spyOn(saveSurveyResultSpy, 'save').mockRejectedValueOnce(error)
+    const { setCurrentAccountMock } = makeSut({ saveSurveyResultSpy })
+    await waitFor(() => {
+      const answers = screen.queryAllByTestId('answer')
+      fireEvent.click(answers[1])
+    })
+    await waitFor(() => {
+      expect(setCurrentAccountMock).toHaveBeenCalledWith(undefined)
+      expect(history.location.pathname).toBe('/login')
+    })
+  })
+
+  test('Should present SurveyResult data on sucess', async () => {
+    const loadSurveyResultSpy = new LoadSurveyResultSpy()
+    const surveyResult = Object.assign(mockSurveyResult(), {
+      date: new Date('2022-12-28T00:00:00')
+    })
+    loadSurveyResultSpy.surveyResult = surveyResult
+    makeSut({ loadSurveyResultSpy })
+    await waitFor(() => {
+      expect(screen.getByTestId('day')).toHaveTextContent('28')
+      expect(screen.getByTestId('month')).toHaveTextContent('dez')
+      expect(screen.getByTestId('year')).toHaveTextContent('2022')
+      expect(screen.getByTestId('question')).toHaveTextContent(surveyResult.question)
+      expect(screen.getByTestId('answers').childElementCount).toBe(2)
+      const answerWrap = screen.queryAllByTestId('answer-wrap')
+      expect(answerWrap[0]).toHaveClass('active')
+      expect(answerWrap[1]).not.toHaveClass('active')
+      const images = screen.queryAllByTestId('image')
+      expect(images[0]).toHaveAttribute('src', surveyResult.answers[0].image)
+      expect(images[0]).toHaveAttribute('alt', surveyResult.answers[0].answer)
+      expect(images[1]).toBeFalsy()
+      const answers = screen.queryAllByTestId('answer')
+      expect(answers[0]).toHaveTextContent(surveyResult.answers[0].answer)
+      expect(answers[1]).toHaveTextContent(surveyResult.answers[1].answer)
+      const percents = screen.queryAllByTestId('percent')
+      expect(percents[0]).toHaveTextContent(`${surveyResult.answers[0].percent}%`)
+      expect(percents[1]).toHaveTextContent(`${surveyResult.answers[1].percent}%`)
+    })
+  })
 })
