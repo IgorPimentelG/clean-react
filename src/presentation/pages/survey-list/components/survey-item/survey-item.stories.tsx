@@ -2,6 +2,7 @@ import { Meta, StoryObj } from '@storybook/react'
 import { LoadSurveyList } from '@/domain/usecases'
 import { mockSurveyList } from '@/domain/test'
 import { SurveyItem } from '@/presentation/pages/survey-list/components'
+import { withRouter } from 'storybook-addon-react-router-v6'
 
 type Props = {
   survey: LoadSurveyList.Model
@@ -10,6 +11,12 @@ type Props = {
 export default {
   title: 'Survey/SurveyItem',
   component: SurveyItem,
+  decorators: [withRouter],
+  parameters: {
+    reactRouter: {
+      routerPath: '/survey-list'
+    }
+  },
   args: {
     survey: mockSurveyList()[0]
   },
