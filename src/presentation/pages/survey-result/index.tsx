@@ -4,7 +4,7 @@ import { LoadSurveyResult, SaveSurveyResult } from '@/domain/usecases'
 import { Header, Footer, Loading, Error } from '@/presentation/components'
 import { useErrorHandler } from '@/presentation/hooks'
 import { SurveyResultData } from './components'
-import SurveyResultContext from '@/presentation/context/survey-result/survey-result-context'
+import { SurveyResultContext } from '@/presentation/context'
 
 type Props = {
   loadSurveyResult: LoadSurveyResult
@@ -13,7 +13,7 @@ type Props = {
 
 const SurveyResult: React.FC<Props> = ({ loadSurveyResult, saveSurveyResult }: Props) => {
   const handleError = useErrorHandler((error: Error) => {
-    setState(old => ({ ...old, error: error.message, surveyResult: null }))
+    setState(old => ({ ...old, error: error.message, surveyResult: null, isLoading: false }))
   })
 
   const [state, setState] = useState({
