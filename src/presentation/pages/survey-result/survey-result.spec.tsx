@@ -194,13 +194,17 @@ describe('SurveyResult Component', () => {
     })
   })
 
-  test('Should present SurveyResult data on sucess', async () => {
-    const loadSurveyResultSpy = new LoadSurveyResultSpy()
+  test('Should present SurveyResult data on SaveSurveyResult sucess', async () => {
+    const saveSurveyResultSpy = new SaveSurveyResultSpy()
     const surveyResult = Object.assign(mockSurveyResult(), {
       date: new Date('2022-12-28T00:00:00')
     })
-    loadSurveyResultSpy.surveyResult = surveyResult
-    makeSut({ loadSurveyResultSpy })
+    saveSurveyResultSpy.surveyResult = surveyResult
+    makeSut({ saveSurveyResultSpy })
+    await waitFor(() => {
+      const answers = screen.queryAllByTestId('answer')
+      fireEvent.click(answers[1])
+    })
     await waitFor(() => {
       expect(screen.getByTestId('day')).toHaveTextContent('28')
       expect(screen.getByTestId('month')).toHaveTextContent('dez')
@@ -220,6 +224,7 @@ describe('SurveyResult Component', () => {
       const percents = screen.queryAllByTestId('percent')
       expect(percents[0]).toHaveTextContent(`${surveyResult.answers[0].percent}%`)
       expect(percents[1]).toHaveTextContent(`${surveyResult.answers[1].percent}%`)
+      expect(screen.queryByTestId('loading')).not.toBeInTheDocument()
     })
   })
 })
