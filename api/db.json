@@ -1,0 +1,83 @@
+{
+    "login": {
+        "accessToken": "8cdb79de-e043-4f43-830c-c37bd0996bd0",
+        "name": "Any Name"
+    },
+    "surveys": [
+        {
+            "id": "2d4d64f2-3ac0-412f-bf03-d641d3d040a2",
+            "question": "Lorem ipsum dolor sit amet, consectetur adipiscing elit?",
+            "date": "2023-01-01T00:00:00",
+            "didAnswer": false
+        },
+        {
+            "id": "93acc862-d011-46cf-adf5-1f9d2a9510c7",
+            "question": "Lorem ipsum dolor sit amet, consectetur adipiscing elit?",
+            "date": "2023-01-01T00:00:00",
+            "didAnswer": false
+        },
+        {
+            "id": "51dec4ff-5d1f-48b1-80ff-89283601ef6d",
+            "question": "Lorem ipsum dolor sit amet, consectetur adipiscing elit?",
+            "date": "2023-01-01T00:00:00",
+            "didAnswer": false
+        },
+        {
+            "id": "20233f19-8c26-4d9e-ac6a-a6e52025c8b8",
+            "question": "Lorem ipsum dolor sit amet, consectetur adipiscing elit?",
+            "date": "2023-01-01T00:00:00",
+            "didAnswer": true
+        },
+        {
+            "id": "017644d1-dff5-4adc-b0ff-cb34a3dee068",
+            "question": "Lorem ipsum dolor sit amet, consectetur adipiscing elit?",
+            "date": "2023-01-01T00:00:00",
+            "didAnswer": true
+        },
+        {
+            "id": "6c5a2698-6feb-4531-87c3-8238360a1e2b",
+            "question": "Lorem ipsum dolor sit amet, consectetur adipiscing elit?",
+            "date": "2023-01-01T00:00:00",
+            "didAnswer": false
+        },
+        {
+            "id": "ac45cdcb-52bf-446f-b471-5e4f3fea1003",
+            "question": "Lorem ipsum dolor sit amet, consectetur adipiscing elit?",
+            "date": "2023-01-01T00:00:00",
+            "didAnswer": false
+        },
+        {
+            "id": "4601c443-a76c-4f5a-bcb5-e961539d0a46",
+            "question": "Lorem ipsum dolor sit amet, consectetur adipiscing elit?",
+            "date": "2023-01-01T00:00:00",
+            "didAnswer": false
+        }
+    ],
+    "surveyResult": {
+        "question": "Lorem ipsum dolor sit amet, consectetur adipiscing elit?",
+        "date": "2023-01-01T00:00:00",
+        "answers": [
+            {
+                "image": "https://ionicframework.com/docs/icons/logo-react-icon.png",
+                "answer": "React",
+                "count": 50,
+                "percent": 70,
+                "isCurrentAccountAnswer": false
+            },
+            {
+                "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/Angular_full_color_logo.svg/250px-Angular_full_color_logo.svg.png",
+                "answer": "Angular",
+                "count": 50,
+                "percent": 20,
+                "isCurrentAccountAnswer": false
+            },
+            {
+                "image": "https://br.vuejs.org/images/logo.png",
+                "answer": "VueJS",
+                "count": 50,
+                "percent": 10,
+                "isCurrentAccountAnswer": false
+            }
+        ]
+      }
+}
