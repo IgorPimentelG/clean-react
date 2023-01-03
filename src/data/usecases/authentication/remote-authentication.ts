@@ -1,15 +1,16 @@
 import { InvalidCredentailsError, UnexpectedError } from '@/domain/errors'
-import { HttpStatusCode, HttpPostClient } from '@/data/protocols/http'
+import { HttpStatusCode, HttpClient } from '@/data/protocols/http'
 import { Authentication } from '@/domain/usecases'
 
 export class RemoteAuthentication implements Authentication {
   constructor (
     private readonly url: string,
-    private readonly httpPostClient: HttpPostClient<RemoteAuthentication.Model>
+    private readonly httpClient: HttpClient<RemoteAuthentication.Model>
   ) {}
 
   async auth (params: Authentication.Params): Promise<Authentication.Model> {
-    const httpResponse = await this.httpPostClient.post({
+    const httpResponse = await this.httpClient.request({
+      method: 'POST',
       url: this.url,
       body: params
     })

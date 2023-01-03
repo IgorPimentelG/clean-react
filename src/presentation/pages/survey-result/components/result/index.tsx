@@ -33,7 +33,7 @@ const SurveyResultData: React.FC<Props> = ({ surveyResult }: Props) => {
       <button
         className={styles.button}
         data-testid="back-button"
-        onClick={() => navigate(-1)}
+        onClick={() => navigate(-1) }
       >
                 Voltar
       </button>
