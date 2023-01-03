@@ -1,4 +1,4 @@
-import { LoadSurveyResult } from '@/domain/usecases'
+import { LoadSurveyResult, SaveSurveyResult } from '@/domain/usecases'
 import faker from 'faker'
 
 export const mockSurveyResult = (): LoadSurveyResult.Model => ({
@@ -16,6 +16,10 @@ export const mockSurveyResult = (): LoadSurveyResult.Model => ({
     percent: faker.random.number(100),
     isCurrentAccountAnswer: false
   }]
+})
+
+export const mockSaveSurveyResultParams = (): SaveSurveyResult.Params => ({
+  answer: faker.random.word()
 })
 
 export class LoadSurveyResultSpy implements LoadSurveyResult {
