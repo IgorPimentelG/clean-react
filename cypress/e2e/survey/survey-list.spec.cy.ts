@@ -14,7 +14,7 @@ const mockSurveys = (stateCode: number): void => {
     })
 }
 
-describe('Privete Routes', () => {
+describe('SurveyList', () => {
     beforeEach(() => {
         cy.setAccount(faker.name.findName(), faker.random.uuid());
     });
