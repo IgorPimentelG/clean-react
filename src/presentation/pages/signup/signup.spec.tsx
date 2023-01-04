@@ -1,4 +1,5 @@
 import React from 'react'
+import { RecoilRoot } from 'recoil'
 import { Router } from 'react-router-dom'
 import { SignUp } from '.'
 import faker from 'faker'
@@ -50,21 +51,23 @@ const makeSut = (params?: SutParams): SutTypes => {
   const setCurrectAccountMock = jest.fn()
   validationStub.errorMessage = params?.validationError
   render(
-    <APIContext.Provider
-      value={{
-        setCurrentAccount: setCurrectAccountMock
-      }}
-    >
-      <Router
-        location={history.location}
-        navigator={history}
+    <RecoilRoot>
+      <APIContext.Provider
+        value={{
+          setCurrentAccount: setCurrectAccountMock
+        }}
       >
-        <SignUp
-          validation={validationStub}
-          addAccount={addAccountSpy}
-        />
-      </Router>
-    </APIContext.Provider>
+        <Router
+          location={history.location}
+          navigator={history}
+        >
+          <SignUp
+            validation={validationStub}
+            addAccount={addAccountSpy}
+          />
+        </Router>
+      </APIContext.Provider>
+    </RecoilRoot>
   )
 
   return {

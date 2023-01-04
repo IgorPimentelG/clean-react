@@ -5,6 +5,7 @@ import { APIContext } from '@/presentation/context'
 import { Router } from 'react-router-dom'
 import { createMemoryHistory } from 'history'
 import { Login } from '@/presentation/pages'
+import { RecoilRoot } from 'recoil'
 import { InvalidCredentailsError } from '@/domain/errors'
 import {
   ValidationStub,
@@ -46,21 +47,23 @@ const makeSut = (params?: SutParams): SutTypes => {
   const setCurrectAccountMock = jest.fn()
   validationStub.errorMessage = params?.validationError
   render(
-    <APIContext.Provider
-      value={{
-        setCurrentAccount: setCurrectAccountMock
-      }}
-    >
-      <Router
-        location={history.location}
-        navigator={history}
+    <RecoilRoot>
+      <APIContext.Provider
+        value={{
+          setCurrentAccount: setCurrectAccountMock
+        }}
       >
-        <Login
-          validation={validationStub}
-          authentication={authenticationSpy}
-        />
-      </Router>
-    </APIContext.Provider>
+        <Router
+          location={history.location}
+          navigator={history}
+        >
+          <Login
+            validation={validationStub}
+            authentication={authenticationSpy}
+          />
+        </Router>
+      </APIContext.Provider>
+    </RecoilRoot>
   )
   return {
     authenticationSpy,

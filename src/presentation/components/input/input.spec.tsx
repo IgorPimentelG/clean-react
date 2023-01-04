@@ -7,7 +7,7 @@ import faker from 'faker'
 const makeSut = (fieldName: string): RenderResult => {
   return render(
     <Context.Provider value={{ state: {} }}>
-      <Input name={fieldName} />
+      <Input name={fieldName} state={{} as any} setState={null} />
     </Context.Provider>
   )
 }

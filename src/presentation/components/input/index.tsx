@@ -1,12 +1,14 @@
-import React, { useContext, useRef } from 'react'
+import React, { useRef } from 'react'
 import styles from './styles.module.scss'
-import { FormContext } from '@/presentation/context'
+import { SetterOrUpdater } from 'recoil'
 
-type Props = React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>
+type Props = React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement> & {
+  state: any
+  setState: SetterOrUpdater<any>
+}
 
-const Input: React.FC<Props> = (props: Props) => {
+const Input: React.FC<Props> = ({ state, setState, ...props }) => {
   const inputRef = useRef<HTMLInputElement>(null)
-  const { state, setState } = useContext(FormContext)
   const error = state[`${props.name}Error`]
 
   function handleChange (event: React.FocusEvent<HTMLInputElement, Element>): void {
