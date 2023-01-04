@@ -1,9 +1,9 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState, useEffect } from 'react'
 import FlipMove from 'react-flip-move'
+import styles from './styles.module.scss'
 import { Calendar } from '@/presentation/components'
 import { useNavigate } from 'react-router-dom'
 import { LoadSurveyResult } from '@/domain/usecases'
-import styles from './styles.module.scss'
 import { SurveyResultAnswerModel } from '@/domain/models'
 import { SurveyResultContext } from '@/presentation/context'
 
@@ -14,6 +14,13 @@ type Props = {
 const SurveyResultData: React.FC<Props> = ({ surveyResult }: Props) => {
   const navigate = useNavigate()
   const { onAnswer } = useContext(SurveyResultContext)
+  const [goBack, setGoBack] = useState(false)
+
+  useEffect(() => {
+    if (goBack) {
+      navigate(-1)
+    }
+  }, [goBack])
 
   function changeAnswer (event: React.MouseEvent, answer: SurveyResultAnswerModel): void {
     if (!event.currentTarget.classList.contains(styles.active)) {
@@ -46,9 +53,9 @@ const SurveyResultData: React.FC<Props> = ({ surveyResult }: Props) => {
       <button
         className={styles.button}
         data-testid="back-button"
-        onClick={() => navigate(-1) }
+        onClick={() => setGoBack(!goBack)}
       >
-                Voltar
+        Voltar
       </button>
     </>
   )

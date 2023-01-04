@@ -1,7 +1,5 @@
 import { Meta, StoryObj } from '@storybook/react'
 import { Input } from '@/presentation/components'
-import { withReactContext } from 'storybook-react-context'
-import { FormContext } from '@/presentation/context'
 
 type Props = React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>
 
@@ -22,13 +20,7 @@ export const Default: StoryObj<Props> = {
       options: ['text', 'number', 'email', 'password'],
       defaultValue: 'text'
     }
-  },
-  decorators: [
-    withReactContext({
-      Context: FormContext,
-      initialState: { state: { emailError: '' } }
-    })
-  ]
+  }
 }
 
 export const Valid: StoryObj<Props> = {
@@ -36,13 +28,7 @@ export const Valid: StoryObj<Props> = {
     name: 'email',
     placeholder: 'Digite o seu e-mail',
     value: 'any@email.com'
-  },
-  decorators: [
-    withReactContext({
-      Context: FormContext,
-      initialState: { state: { emailError: '' } }
-    })
-  ]
+  }
 }
 
 export const Invalid: StoryObj<Props> = {
@@ -50,11 +36,5 @@ export const Invalid: StoryObj<Props> = {
     name: 'email',
     placeholder: 'Digite o seu e-mail',
     value: 'invalid_mail'
-  },
-  decorators: [
-    withReactContext({
-      Context: FormContext,
-      initialState: { state: { emailError: 'Campo obrigatório' } }
-    })
-  ]
+  }
 }

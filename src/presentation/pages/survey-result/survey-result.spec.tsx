@@ -1,7 +1,7 @@
 import React from 'react'
 import { Router } from 'react-router-dom'
 import { SurveyResult } from '@/presentation/pages'
-import { render, screen, waitFor, fireEvent } from '@testing-library/react'
+import { render, screen, waitFor, fireEvent, act } from '@testing-library/react'
 import { APIContext } from '@/presentation/context'
 import { createMemoryHistory } from 'history'
 import { AccountModel } from '@/domain/models'
@@ -24,7 +24,7 @@ type SutParams = {
   saveSurveyResultSpy?: SaveSurveyResultSpy
 }
 
-const history = createMemoryHistory({ initialEntries: ['/', '/survey/any_id'], initialIndex: 1 })
+const history = createMemoryHistory({ initialEntries: ['/survey-list', '/survey/any_id'], initialIndex: 1 })
 
 const makeSut = ({
   loadSurveyResultSpy = new LoadSurveyResultSpy(),
@@ -138,7 +138,7 @@ describe('SurveyResult Component', () => {
     makeSut()
     await waitFor(() => {
       fireEvent.click(screen.getByTestId('back-button'))
-      expect(history.location.pathname).toBe('/')
+      expect(history.location.pathname).toBe('/survey-list')
     })
   })
 
@@ -156,6 +156,8 @@ describe('SurveyResult Component', () => {
     await waitFor(() => {
       const answers = screen.queryAllByTestId('answer')
       fireEvent.click(answers[1])
+    })
+    await waitFor(() => {
       expect(screen.queryByTestId('loading')).toBeInTheDocument()
       expect(saveSurveyResultSpy.params).toEqual({
         answer: loadSurveyResultSpy.surveyResult.answers[1].answer
@@ -164,11 +166,13 @@ describe('SurveyResult Component', () => {
   })
 
   test('Should render error on UnexpectedError', async () => {
+    const loadSurveyResultSpy = new LoadSurveyResultSpy()
+    loadSurveyResultSpy.surveyResult = mockSurveyResult()
     const saveSurveyResultSpy = new SaveSurveyResultSpy()
     const error = new UnexpectedError()
-    makeSut({ saveSurveyResultSpy })
     jest.spyOn(saveSurveyResultSpy, 'save').mockRejectedValueOnce(error)
-    await waitFor(() => {
+    makeSut({ saveSurveyResultSpy, loadSurveyResultSpy })
+    await waitFor(async () => {
       const answers = screen.queryAllByTestId('answer')
       fireEvent.click(answers[1])
     })

@@ -1,14 +1,11 @@
 import React from 'react'
 import { fireEvent, render, RenderResult } from '@testing-library/react'
 import { Input } from './index'
-import Context from '@/presentation/context/form/form-context'
 import faker from 'faker'
 
 const makeSut = (fieldName: string): RenderResult => {
   return render(
-    <Context.Provider value={{ state: {} }}>
-      <Input name={fieldName} state={{} as any} setState={null} />
-    </Context.Provider>
+    <Input name={fieldName} state={{} as any} setState={null} />
   )
 }
 
