@@ -1,11 +1,12 @@
-import React, { useContext, useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import FlipMove from 'react-flip-move'
 import styles from './styles.module.scss'
 import { Calendar } from '@/presentation/components'
 import { useNavigate } from 'react-router-dom'
 import { LoadSurveyResult } from '@/domain/usecases'
 import { SurveyResultAnswerModel } from '@/domain/models'
-import { SurveyResultContext } from '@/presentation/context'
+import { useRecoilValue } from 'recoil'
+import { onSurveyAnswerState } from '../../atom'
 
 type Props = {
   surveyResult: LoadSurveyResult.Model
@@ -13,7 +14,7 @@ type Props = {
 
 const SurveyResultData: React.FC<Props> = ({ surveyResult }: Props) => {
   const navigate = useNavigate()
-  const { onAnswer } = useContext(SurveyResultContext)
+  const { onAnswer } = useRecoilValue(onSurveyAnswerState)
   const [goBack, setGoBack] = useState(false)
 
   useEffect(() => {

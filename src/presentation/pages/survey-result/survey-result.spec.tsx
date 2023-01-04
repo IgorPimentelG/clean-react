@@ -1,7 +1,8 @@
 import React from 'react'
+import { RecoilRoot } from 'recoil'
 import { Router } from 'react-router-dom'
 import { SurveyResult } from '@/presentation/pages'
-import { render, screen, waitFor, fireEvent, act } from '@testing-library/react'
+import { render, screen, waitFor, fireEvent } from '@testing-library/react'
 import { APIContext } from '@/presentation/context'
 import { createMemoryHistory } from 'history'
 import { AccountModel } from '@/domain/models'
@@ -32,19 +33,21 @@ const makeSut = ({
 }: SutParams = {}): SutTypes => {
   const setCurrentAccountMock = jest.fn()
   render(
-    <Router
-      location={history.location}
-      navigator={history}
-    >
-      <APIContext.Provider
-        value={{ setCurrentAccount: setCurrentAccountMock, getCurrentAccount: () => mockAccountModel() }}
+    <RecoilRoot>
+      <Router
+        location={history.location}
+        navigator={history}
       >
-        <SurveyResult
-          loadSurveyResult={loadSurveyResultSpy}
-          saveSurveyResult={saveSurveyResultSpy}
-        />
-      </APIContext.Provider>
-    </Router>
+        <APIContext.Provider
+          value={{ setCurrentAccount: setCurrentAccountMock, getCurrentAccount: () => mockAccountModel() }}
+        >
+          <SurveyResult
+            loadSurveyResult={loadSurveyResultSpy}
+            saveSurveyResult={saveSurveyResultSpy}
+          />
+        </APIContext.Provider>
+      </Router>
+    </RecoilRoot>
   )
 
   return {
@@ -153,10 +156,9 @@ describe('SurveyResult Component', () => {
 
   test('Should call SaveSurveyResult on non active answer click', async () => {
     const { saveSurveyResultSpy, loadSurveyResultSpy } = makeSut()
-    await waitFor(() => {
-      const answers = screen.queryAllByTestId('answer')
-      fireEvent.click(answers[1])
-    })
+    await waitFor(() => screen.getByTestId('survey-result'))
+    const answers = screen.queryAllByTestId('answer-wrap')
+    fireEvent.click(answers[1])
     await waitFor(() => {
       expect(screen.queryByTestId('loading')).toBeInTheDocument()
       expect(saveSurveyResultSpy.params).toEqual({
@@ -234,13 +236,11 @@ describe('SurveyResult Component', () => {
 
   test('Should prevent multiple answer click', async () => {
     const { saveSurveyResultSpy } = makeSut()
-    await waitFor(() => {
-      const answers = screen.queryAllByTestId('answer')
-      fireEvent.click(answers[1])
-      fireEvent.click(answers[1])
-    })
-    await waitFor(() => {
-      expect(saveSurveyResultSpy.callsCount).toBe(1)
-    })
+    await waitFor(() => screen.getByTestId('survey-result'))
+    const answers = screen.queryAllByTestId('answer-wrap')
+    fireEvent.click(answers[1])
+    await waitFor(() => screen.getByTestId('survey-result'))
+    fireEvent.click(answers[1])
+    expect(saveSurveyResultSpy.callsCount).toBe(1)
   })
 })
