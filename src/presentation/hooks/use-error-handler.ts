@@ -1,5 +1,5 @@
-import { AccessDeniedError } from '@/domain/errors'
 import { useLogout } from './use-logout'
+import { AccessDeniedError } from '@/domain/errors'
 
 type CallbackType = (error: Error) => void
 type ResultType = CallbackType

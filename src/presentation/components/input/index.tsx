@@ -1,6 +1,7 @@
 import React, { useRef } from 'react'
-import styles from './styles.module.scss'
 import { SetterOrUpdater } from 'recoil'
+
+import styles from './styles.module.scss'
 
 type Props = React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement> & {
   state: any

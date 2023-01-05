@@ -1,8 +1,9 @@
 import React from 'react'
-import styles from './styles.module.scss'
-import { Calendar, Icon, IconName } from '@/presentation/components'
-import { LoadSurveyList } from '@/domain/usecases'
 import { Link } from 'react-router-dom'
+
+import styles from './styles.module.scss'
+import { LoadSurveyList } from '@/domain/usecases'
+import { Calendar, Icon, IconName } from '@/presentation/components'
 
 type Props = {
   survey: LoadSurveyList.Model

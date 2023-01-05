@@ -1,8 +1,9 @@
-import { Header } from '@/presentation/components'
 import { fireEvent, screen } from '@testing-library/react'
 import { createMemoryHistory } from 'history'
+
 import { AccountModel } from '@/domain/models'
 import { mockAccountModel } from '@/domain/test'
+import { Header } from '@/presentation/components'
 import { renderWithHistory } from '@/presentation/test'
 
 type SutTypes = {

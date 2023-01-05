@@ -1,15 +1,16 @@
 import React from 'react'
-import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom'
-import { setCurrentAccountAdapter, getCurrentAccountAdapter } from '@/main/adapters'
-import { PrivateRoutes } from '@/presentation/config'
 import { RecoilRoot } from 'recoil'
+import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom'
+
+import { PrivateRoutes } from '@/presentation/config'
+import { currentAccountState } from '@/presentation/shared/atoms'
+import { setCurrentAccountAdapter, getCurrentAccountAdapter } from '@/main/adapters'
 import {
   MakeLogin,
   MakeSignUp,
   MakeSurveyList,
   MakeSurveyResult
 } from '@/main/factories/pages'
-import { currentAccountState } from '@/presentation/shared/atoms'
 
 const Router: React.FC = () => {
   return (

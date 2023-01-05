@@ -1,19 +1,16 @@
 import faker from 'faker'
-import { Authentication } from '@/domain/usecases'
 import { createMemoryHistory } from 'history'
-import { Login } from '@/presentation/pages'
+import { fireEvent, waitFor, screen } from '@testing-library/react'
+
+import { Authentication } from '@/domain/usecases'
 import { InvalidCredentailsError } from '@/domain/errors'
+import { Login } from '@/presentation/pages'
 import {
   ValidationStub,
   AuthenticationSpy,
   Helper,
   renderWithHistory
 } from '@/presentation/test'
-import {
-  fireEvent,
-  waitFor,
-  screen
-} from '@testing-library/react'
 
 type SutTypes = {
   authenticationSpy: AuthenticationSpy

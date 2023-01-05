@@ -1,5 +1,5 @@
-import { screen, fireEvent } from '@testing-library/react'
 import faker from 'faker'
+import { screen, fireEvent } from '@testing-library/react'
 
 export const testChildCount = (field: string, count: number): void => {
   expect(screen.getByTestId(field).childElementCount).toBe(count)

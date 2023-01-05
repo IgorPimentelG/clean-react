@@ -1,6 +1,8 @@
-import { SurveyResult } from '@/presentation/pages'
 import { screen, waitFor, fireEvent } from '@testing-library/react'
 import { createMemoryHistory } from 'history'
+
+import { SurveyResult } from '@/presentation/pages'
+import { renderWithHistory } from '@/presentation/test'
 import { AccountModel } from '@/domain/models'
 import { AccessDeniedError, UnexpectedError } from '@/domain/errors'
 import {
@@ -8,7 +10,6 @@ import {
   mockSurveyResult,
   SaveSurveyResultSpy
 } from '@/domain/test'
-import { renderWithHistory } from '@/presentation/test'
 
 type SutTypes = {
   loadSurveyResultSpy: LoadSurveyResultSpy

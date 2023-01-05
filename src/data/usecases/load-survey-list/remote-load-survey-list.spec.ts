@@ -1,9 +1,10 @@
-import { LoadSurveyList } from '@/domain/usecases/load-survey-list'
-import { RemoteLoadSurveyList } from './remote-load-survey-list'
-import { HttpClientSpy, mockRemoteSurveyList } from '@/data/test'
-import { HttpStatusCode } from '@/data/protocols/http'
-import { AccessDeniedError, UnexpectedError } from '@/domain/errors'
 import faker from 'faker'
+
+import { RemoteLoadSurveyList } from './remote-load-survey-list'
+import { HttpStatusCode } from '@/data/protocols/http'
+import { HttpClientSpy, mockRemoteSurveyList } from '@/data/test'
+import { LoadSurveyList } from '@/domain/usecases/load-survey-list'
+import { AccessDeniedError, UnexpectedError } from '@/domain/errors'
 
 type SutTypes = {
   sut: LoadSurveyList

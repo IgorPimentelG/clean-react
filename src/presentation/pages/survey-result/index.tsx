@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react'
-import styles from './styles.module.scss'
-import { LoadSurveyResult, SaveSurveyResult } from '@/domain/usecases'
-import { Header, Footer, Loading, Error } from '@/presentation/components'
-import { useErrorHandler } from '@/presentation/hooks'
-import { SurveyResultData } from './components'
 import { useRecoilState, useSetRecoilState } from 'recoil'
+
+import styles from './styles.module.scss'
 import { surveyResultState, onSurveyAnswerState } from './atom'
+import { SurveyResultData } from './components'
+import { LoadSurveyResult, SaveSurveyResult } from '@/domain/usecases'
+import { useErrorHandler } from '@/presentation/hooks'
+import { Header, Footer, Loading, Error } from '@/presentation/components'
 
 type Props = {
   loadSurveyResult: LoadSurveyResult

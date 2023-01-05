@@ -1,12 +1,13 @@
 import React, { useEffect } from 'react'
-import styles from './styles.module.scss'
-import { useRecoilState, useRecoilValue, useResetRecoilState } from 'recoil'
-import { loginState } from './atoms'
 import { Link, useNavigate } from 'react-router-dom'
-import { Authentication } from '@/domain/usecases'
-import { Validation } from '@/presentation/protocols/validation'
+import { useRecoilState, useRecoilValue, useResetRecoilState } from 'recoil'
+
+import styles from './styles.module.scss'
+import { loginState } from './atoms'
 import { Input, SubmitButton, FormStatus } from './components'
+import { Authentication } from '@/domain/usecases'
 import { LoginHeader, Footer } from '@/presentation/components'
+import { Validation } from '@/presentation/protocols/validation'
 import { currentAccountState } from '@/presentation/shared/atoms'
 
 type Props = {

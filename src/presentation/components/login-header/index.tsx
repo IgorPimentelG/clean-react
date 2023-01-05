@@ -1,4 +1,5 @@
 import React, { memo } from 'react'
+
 import { Logo } from '../logo'
 import styles from './styles.module.scss'
 

@@ -1,5 +1,6 @@
-import { GetStorage } from '../protocols/cache'
 import faker from 'faker'
+
+import { GetStorage } from '../protocols/cache'
 
 class GetStorageSpy implements GetStorage {
     key: string

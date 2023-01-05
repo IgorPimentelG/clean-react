@@ -1,11 +1,12 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
+import { useRecoilState } from 'recoil'
+
 import styles from './styles.module.scss'
+import { surveyListState } from './atom'
+import { SurveyItem, SurveyItemEmpty } from './components'
 import { LoadSurveyList } from '@/domain/usecases'
 import { useErrorHandler } from '@/presentation/hooks'
 import { Header, Footer, Error } from '@/presentation/components'
-import { SurveyItem, SurveyItemEmpty } from './components'
-import { useRecoilState } from 'recoil'
-import { surveyListState } from './atom'
 
 type Props = {
   loadSurveyList: LoadSurveyList

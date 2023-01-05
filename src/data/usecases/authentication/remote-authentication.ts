@@ -1,6 +1,6 @@
+import { Authentication } from '@/domain/usecases'
 import { InvalidCredentailsError, UnexpectedError } from '@/domain/errors'
 import { HttpStatusCode, HttpClient } from '@/data/protocols/http'
-import { Authentication } from '@/domain/usecases'
 
 export class RemoteAuthentication implements Authentication {
   constructor (

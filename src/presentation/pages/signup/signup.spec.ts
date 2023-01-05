@@ -1,19 +1,16 @@
-import { SignUp } from '.'
 import faker from 'faker'
 import { createMemoryHistory } from 'history'
+import { screen, fireEvent, waitFor } from '@testing-library/react'
+
 import { EmailInUseError } from '@/domain/errors'
 import { AddAccount } from '@/domain/usecases'
+import { SignUp } from '@/presentation/pages'
 import {
   Helper,
   ValidationStub,
   AddAccountSpy,
   renderWithHistory
 } from '@/presentation/test'
-import {
-  screen,
-  fireEvent,
-  waitFor
-} from '@testing-library/react'
 
 const history = createMemoryHistory({ initialEntries: ['/login'] })
 

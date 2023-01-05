@@ -1,5 +1,6 @@
-import { PrivateRoutes } from './private-routes'
 import { createMemoryHistory, MemoryHistory } from 'history'
+
+import { PrivateRoutes } from './private-routes'
 import { mockAccountModel } from '@/domain/test'
 import { renderWithHistory } from '@/presentation/test'
 

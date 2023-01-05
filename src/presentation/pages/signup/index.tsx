@@ -1,16 +1,14 @@
 import React, { useEffect } from 'react'
-import styles from './styles.module.scss'
 import { Link, useNavigate } from 'react-router-dom'
+import { useRecoilState, useRecoilValue, useResetRecoilState } from 'recoil'
+
+import styles from './styles.module.scss'
+import { signUpState } from './atoms'
+import { Input, SubmitButton, FormStatus } from './components'
 import { AddAccount } from '@/domain/usecases'
 import { currentAccountState } from '@/presentation/shared/atoms'
 import { Validation } from '@/presentation/protocols/validation'
-import { useRecoilState, useRecoilValue, useResetRecoilState } from 'recoil'
-import { signUpState } from './atoms'
-import { Input, SubmitButton, FormStatus } from './components'
-import {
-  LoginHeader,
-  Footer
-} from '@/presentation/components'
+import { LoginHeader, Footer } from '@/presentation/components'
 
 type Props = {
   validation: Validation

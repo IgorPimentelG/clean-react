@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import FlipMove from 'react-flip-move'
-import styles from './styles.module.scss'
-import { Calendar } from '@/presentation/components'
 import { useNavigate } from 'react-router-dom'
+import { useRecoilValue } from 'recoil'
+
+import styles from './styles.module.scss'
+import { onSurveyAnswerState } from '../../atom'
+import { Calendar } from '@/presentation/components'
 import { LoadSurveyResult } from '@/domain/usecases'
 import { SurveyResultAnswerModel } from '@/domain/models'
-import { useRecoilValue } from 'recoil'
-import { onSurveyAnswerState } from '../../atom'
 
 type Props = {
   surveyResult: LoadSurveyResult.Model

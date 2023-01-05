@@ -2,10 +2,11 @@ import React from 'react'
 import { RecoilRoot } from 'recoil'
 import { Router } from 'react-router-dom'
 import { MemoryHistory } from 'history'
-import { currentAccountState } from '@/presentation/shared/atoms'
 import { render } from '@testing-library/react'
+
 import { mockAccountModel } from '@/domain/test'
 import { AccountModel } from '@/domain/models'
+import { currentAccountState } from '@/presentation/shared/atoms'
 
 type Params = {
   Page: React.FC

@@ -1,9 +1,10 @@
-import { HttpClientSpy } from '@/data/test'
+import faker from 'faker'
+
 import { RemoteAuthentication } from './remote-authentication'
+import { HttpClientSpy } from '@/data/test'
+import { HttpStatusCode } from '@/data/protocols/http'
 import { mockAccountModel, mockAuthentication } from '@/domain/test'
 import { InvalidCredentailsError, UnexpectedError } from '@/domain/errors'
-import { HttpStatusCode } from '@/data/protocols/http'
-import faker from 'faker'
 
 type SutTypes = {
   sut: RemoteAuthentication

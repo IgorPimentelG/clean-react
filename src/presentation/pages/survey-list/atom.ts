@@ -1,4 +1,5 @@
 import { atom } from 'recoil'
+
 import { LoadSurveyList } from '@/domain/usecases'
 
 const surveyListState = atom({

@@ -1,12 +1,11 @@
-import React from 'react'
-import { SurveyItem } from '@/presentation/pages/survey-list/components'
-import { render, screen, fireEvent } from '@testing-library/react'
-import { mockSurveyList } from '@/domain/test'
-import { IconName } from '@/presentation/components'
-import { LoadSurveyList } from '@/domain/usecases'
-import { Router } from 'react-router-dom'
+import { screen, fireEvent } from '@testing-library/react'
 import { createMemoryHistory } from 'history'
+
+import { mockSurveyList } from '@/domain/test'
+import { LoadSurveyList } from '@/domain/usecases'
 import { renderWithHistory } from '@/presentation/test'
+import { IconName } from '@/presentation/components'
+import { SurveyItem } from '@/presentation/pages/survey-list/components'
 
 type SutParams = {
   survey: LoadSurveyList.Model

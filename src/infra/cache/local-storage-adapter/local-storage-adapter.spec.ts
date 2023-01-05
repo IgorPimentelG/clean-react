@@ -1,6 +1,7 @@
-import { LocalStorageAdapter } from './local-storage-adapter'
 import faker from 'faker'
 import 'jest-localstorage-mock'
+
+import { LocalStorageAdapter } from './local-storage-adapter'
 
 type SutTypes = {
   sut: LocalStorageAdapter
