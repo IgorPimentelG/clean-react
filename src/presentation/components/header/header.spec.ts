@@ -1,12 +1,9 @@
-import React from 'react'
 import { Header } from '@/presentation/components'
-import { fireEvent, render, screen } from '@testing-library/react'
+import { fireEvent, screen } from '@testing-library/react'
 import { createMemoryHistory } from 'history'
-import { Router } from 'react-router-dom'
 import { AccountModel } from '@/domain/models'
 import { mockAccountModel } from '@/domain/test'
-import { RecoilRoot } from 'recoil'
-import { currentAccountState } from '@/presentation/shared/atoms'
+import { renderWithHistory } from '@/presentation/test'
 
 type SutTypes = {
   setCurrentAccountMock: (account: AccountModel) => void
@@ -15,20 +12,11 @@ type SutTypes = {
 const history = createMemoryHistory({ initialEntries: ['/'] })
 
 const makeSut = (account = mockAccountModel()): SutTypes => {
-  const setCurrentAccountMock = jest.fn()
-  render(
-    <RecoilRoot initializeState={({ set }) => set(currentAccountState, {
-      setCurrentAccount: setCurrentAccountMock,
-      getCurrentAccount: () => account
-    })}>
-      <Router
-        location={history.location}
-        navigator={history}
-      >
-        <Header />
-      </Router>
-    </RecoilRoot>
-  )
+  const { setCurrentAccountMock } = renderWithHistory({
+    history,
+    Page: Header,
+    account
+  })
 
   return {
     setCurrentAccountMock

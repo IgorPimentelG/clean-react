@@ -6,6 +6,7 @@ import { IconName } from '@/presentation/components'
 import { LoadSurveyList } from '@/domain/usecases'
 import { Router } from 'react-router-dom'
 import { createMemoryHistory } from 'history'
+import { renderWithHistory } from '@/presentation/test'
 
 type SutParams = {
   survey: LoadSurveyList.Model
@@ -14,14 +15,10 @@ type SutParams = {
 const history = createMemoryHistory({ initialEntries: ['/'] })
 
 const makeSut = ({ survey }: SutParams): void => {
-  render(
-    <Router
-      location={history.location}
-      navigator={history}
-    >
-      <SurveyItem survey={survey} />
-    </Router>
-  )
+  renderWithHistory({
+    history,
+    Page: () => SurveyItem({ survey })
+  })
 }
 
 describe('SurveyItem Component', () => {

@@ -1,27 +1,23 @@
-import React from 'react'
 import faker from 'faker'
 import { Authentication } from '@/domain/usecases'
-import { Router } from 'react-router-dom'
 import { createMemoryHistory } from 'history'
 import { Login } from '@/presentation/pages'
-import { RecoilRoot } from 'recoil'
 import { InvalidCredentailsError } from '@/domain/errors'
-import { currentAccountState } from '@/presentation/shared/atoms'
 import {
   ValidationStub,
   AuthenticationSpy,
-  Helper
+  Helper,
+  renderWithHistory
 } from '@/presentation/test'
 import {
   fireEvent,
-  render,
   waitFor,
   screen
 } from '@testing-library/react'
 
 type SutTypes = {
   authenticationSpy: AuthenticationSpy
-  setCurrectAccountMock: (account: Authentication.Model) => void
+  setCurrentAccountMock: (account: Authentication.Model) => void
 }
 
 type SutParams = {
@@ -44,27 +40,15 @@ const simulateValidSubmit = async (
 const makeSut = (params?: SutParams): SutTypes => {
   const validationStub = new ValidationStub()
   const authenticationSpy = new AuthenticationSpy()
-  const setCurrectAccountMock = jest.fn()
   validationStub.errorMessage = params?.validationError
-  render(
-    <RecoilRoot initializeState={({ set }) => set(currentAccountState, {
-      setCurrentAccount: setCurrectAccountMock,
-      getCurrentAccount: jest.fn()
-    })}>
-      <Router
-        location={history.location}
-        navigator={history}
-      >
-        <Login
-          validation={validationStub}
-          authentication={authenticationSpy}
-        />
-      </Router>
-    </RecoilRoot>
-  )
+  const { setCurrentAccountMock } = renderWithHistory({
+    history,
+    Page: () => Login({ validation: validationStub, authentication: authenticationSpy })
+  })
+
   return {
     authenticationSpy,
-    setCurrectAccountMock
+    setCurrentAccountMock
   }
 }
 
@@ -152,9 +136,9 @@ describe('Login Component', () => {
   })
 
   test('Should call UpdateCurrentAccount on success', async () => {
-    const { authenticationSpy, setCurrectAccountMock } = makeSut()
+    const { authenticationSpy, setCurrentAccountMock } = makeSut()
     await simulateValidSubmit()
-    expect(setCurrectAccountMock).toHaveBeenCalledWith(authenticationSpy.account)
+    expect(setCurrentAccountMock).toHaveBeenCalledWith(authenticationSpy.account)
     expect(history.location.pathname).toBe('/survey-list')
   })
 
