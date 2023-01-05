@@ -34,8 +34,8 @@ module.exports = merge(common, {
   externals: {
     react: 'React',
     axios: 'axios',
-    'react-dom': 'ReactDOM',
-    'react-router-dom': 'ReactRouterDOM'
+    recoil: 'Recoil',
+    'react-dom': 'ReactDOM'
   },
   plugins: [
     new DefinePlugin({
