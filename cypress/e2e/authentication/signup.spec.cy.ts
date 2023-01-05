@@ -26,6 +26,14 @@ describe("SignUp", () => {
         cy.getByTestId("submit").should("have.attr", "disabled");
     });
 
+    it("Should reset state on page load", () => {
+        cy.getByTestId("email").focus().type(faker.internet.email());
+        FormHelper.testInputStatus("email");
+        cy.getByTestId("login-link").click();
+        cy.getByTestId("signup-link").click();
+        FormHelper.testInputStatus("email", "Campo obrigatório");
+    });
+
     it("Should present error state if form is invalid", () => {
         cy.getByTestId("email").focus().type(faker.random.alphaNumeric(4));
         FormHelper.testInputStatus("email", "Valor Inválido");

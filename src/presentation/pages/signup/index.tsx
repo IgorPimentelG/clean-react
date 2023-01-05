@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { AddAccount } from '@/domain/usecases'
 import { currentAccountState } from '@/presentation/shared/atoms'
 import { Validation } from '@/presentation/protocols/validation'
-import { useRecoilState, useRecoilValue } from 'recoil'
+import { useRecoilState, useRecoilValue, useResetRecoilState } from 'recoil'
 import { signUpState } from './atoms'
 import { Input, SubmitButton, FormStatus } from './components'
 import {
@@ -22,8 +22,11 @@ const SignUp: React.FC<Props> = ({
   addAccount
 }: Props) => {
   const { setCurrentAccount } = useRecoilValue(currentAccountState)
+  const resetSignUpState = useResetRecoilState(signUpState)
   const navigate = useNavigate()
   const [state, setState] = useRecoilState(signUpState)
+
+  useEffect(() => resetSignUpState(), [])
 
   useEffect(() => {
     const { name, email, password, passwordConfirmation } = state
