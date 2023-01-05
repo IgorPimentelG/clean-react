@@ -22,8 +22,8 @@ const SignUp: React.FC<Props> = ({
   addAccount
 }: Props) => {
   const { setCurrentAccount } = useRecoilValue(currentAccountState)
-  const resetSignUpState = useResetRecoilState(signUpState)
   const navigate = useNavigate()
+  const resetSignUpState = useResetRecoilState(signUpState)
   const [state, setState] = useRecoilState(signUpState)
 
   useEffect(() => resetSignUpState(), [])
@@ -38,14 +38,14 @@ const SignUp: React.FC<Props> = ({
       'passwordConfirmation', formData
     )
 
-    setState({
-      ...state,
+    setState(old => ({
+      ...old,
       nameError,
       emailError,
       passwordError,
       passwordConfirmationError,
       isFormInvalid: !!nameError || !!emailError || !!passwordError || !!passwordConfirmationError
-    })
+    }))
   }, [state.name, state.email, state.password, state.passwordConfirmation])
 
   async function handleSubmit (event: React.FormEvent<HTMLFormElement>): Promise<void> {

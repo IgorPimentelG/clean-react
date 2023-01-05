@@ -81,7 +81,7 @@ describe("Login", () => {
             .getByTestId("spinner").should("exist")
             .getByTestId("error").should("not.exist")
             .getByTestId("spinner").should("not.exist")
-        FormHelper.testUrl("/login");
+        FormHelper.testUrl("/survey-list");
         cy.window().then(window => assert.isOk(window.localStorage.getItem("account")));
     });
 
