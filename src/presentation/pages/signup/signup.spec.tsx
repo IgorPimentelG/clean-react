@@ -4,9 +4,9 @@ import { Router } from 'react-router-dom'
 import { SignUp } from '.'
 import faker from 'faker'
 import { createMemoryHistory } from 'history'
-import { APIContext } from '@/presentation/context'
 import { EmailInUseError } from '@/domain/errors'
 import { AddAccount } from '@/domain/usecases'
+import { currentAccountState } from '@/presentation/shared/atoms'
 import {
   Helper,
   ValidationStub,
@@ -51,22 +51,19 @@ const makeSut = (params?: SutParams): SutTypes => {
   const setCurrectAccountMock = jest.fn()
   validationStub.errorMessage = params?.validationError
   render(
-    <RecoilRoot>
-      <APIContext.Provider
-        value={{
-          setCurrentAccount: setCurrectAccountMock
-        }}
+    <RecoilRoot initializeState={({ set }) => set(currentAccountState, {
+      setCurrentAccount: setCurrectAccountMock,
+      getCurrentAccount: jest.fn()
+    })}>
+      <Router
+        location={history.location}
+        navigator={history}
       >
-        <Router
-          location={history.location}
-          navigator={history}
-        >
-          <SignUp
-            validation={validationStub}
-            addAccount={addAccountSpy}
-          />
-        </Router>
-      </APIContext.Provider>
+        <SignUp
+          validation={validationStub}
+          addAccount={addAccountSpy}
+        />
+      </Router>
     </RecoilRoot>
   )
 

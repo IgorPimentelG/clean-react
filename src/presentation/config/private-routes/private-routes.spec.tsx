@@ -3,8 +3,9 @@ import { render } from '@testing-library/react'
 import { PrivateRoutes } from './private-routes'
 import { createMemoryHistory, MemoryHistory } from 'history'
 import { Router } from 'react-router-dom'
-import { APIContext } from '@/presentation/context'
 import { mockAccountModel } from '@/domain/test'
+import { RecoilRoot } from 'recoil'
+import { currentAccountState } from '@/presentation/shared/atoms'
 
 type SutTypes = {
   history: MemoryHistory
@@ -13,10 +14,10 @@ type SutTypes = {
 const makeSut = (account = mockAccountModel()): SutTypes => {
   const history = createMemoryHistory({ initialEntries: ['/'] })
   render(
-    <APIContext.Provider
-      value={{
-        getCurrentAccount: () => account
-      }}
+    <RecoilRoot initializeState={({ set }) => set(currentAccountState, {
+      getCurrentAccount: () => account,
+      setCurrentAccount: jest.fn()
+    })}
     >
       <Router
         location={history.location}
@@ -25,7 +26,7 @@ const makeSut = (account = mockAccountModel()): SutTypes => {
         <PrivateRoutes>
         </PrivateRoutes>
       </Router>
-    </APIContext.Provider>
+    </RecoilRoot>
   )
 
   return {
