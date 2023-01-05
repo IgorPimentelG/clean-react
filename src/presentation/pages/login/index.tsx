@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import styles from './styles.module.scss'
-import { useRecoilState, useRecoilValue } from 'recoil'
+import { useRecoilState, useRecoilValue, useResetRecoilState } from 'recoil'
 import { loginState } from './atoms'
 import { Link, useNavigate } from 'react-router-dom'
 import { Authentication } from '@/domain/usecases'
@@ -16,8 +16,11 @@ type Props = {
 
 const Login: React.FC<Props> = ({ validation, authentication }: Props) => {
   const { setCurrentAccount } = useRecoilValue(currentAccountState)
+  const resetLoginState = useResetRecoilState(loginState)
   const navigate = useNavigate()
   const [state, setState] = useRecoilState(loginState)
+
+  useEffect(() => resetLoginState(), [])
 
   useEffect(() => {
     const { email, password } = state
