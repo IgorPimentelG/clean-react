@@ -102,6 +102,6 @@
     "react-dom": "^18.2.0",
     "react-flip-move": "^3.0.5",
     "react-router-dom": "^6.6.1",
-    "recoil": "^0.7.6"
+    "recoil": "^0.7.7"
   }
 }
